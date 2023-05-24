@@ -1,0 +1,24 @@
+@keyframes blink {
+  to {
+    background: transparent;
+    opacity: 0;
+  }
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+.heroText span::before {
+  background-color: rgb(var(--white));
+  animation: typewriter 1.2s 1.4s steps(11) forwards;
+}
+
+.heroText span::after {
+    width: 0.1rem;
+    background: rgb(var(--black));
+    animation: typewriter 1.2s 1.4s steps(11) forwards,
+    blink 0.8s steps(11) infinite;
+}

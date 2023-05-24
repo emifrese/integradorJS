@@ -1,0 +1,230 @@
+:root {
+  --card-shadow: 0 7px 16px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --black: 5, 4, 5;
+  --yellow-logo: 254, 247, 33;
+  --yellow-logo-darker: 218, 211, 0;
+  --orange: 255, 170, 33;
+  --orange-darker: 216, 143, 26;
+  --grey: 163, 172, 174;
+  --white: 249, 254, 255;
+  --fucsia: 233, 97, 219;
+  --fucsia-darker: 189, 52, 175;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* ----- HEADER -----  */
+
+header {
+  background-color: rgb(var(--orange));
+  width: 100%;
+  height: 100px;
+  padding: 0 4rem;
+  display: flex;
+}
+
+.logoImgContainer {
+}
+
+.logoImgContainer img {
+  width: 100px;
+}
+
+.headerContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topHeader,
+.bottomHeader {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+}
+
+.searchBarContainer {
+  width: 580px;
+  position: relative;
+  width: 580px;
+  height: 100%;
+}
+
+.searchBar {
+  width: 100%;
+  height: 100%;
+}
+
+.searchBar input {
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+  border: none;
+}
+
+.searchBar input:focus-visible {
+  outline: rgb(var(--fucsia)) auto 1px;
+}
+
+.searchBar button {
+  background-color: transparent;
+  position: absolute;
+  right: 0.5rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  cursor: pointer;
+}
+
+.searchBar img {
+  height: 70%;
+  filter: invert(86%) sepia(9%) saturate(201%) hue-rotate(144deg)
+    brightness(81%) contrast(80%);
+}
+
+.dealsButtonContainer {
+  color: rgb(var(--black));
+  border: 1px solid rgb(var(--yellow-logo));
+  min-width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(var(--yellow-logo-darker));
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.dealsButtonContainer:hover {
+  background-color: rgb(var(--yellow-logo));
+  transform: all 0.3s ease;
+}
+
+.filtersContainer,
+.userContainer {
+  width: 50%;
+}
+
+.filtersContainer ul,
+.userContainer ul {
+  list-style-type: none;
+  display: flex;
+  column-gap: 1rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  color: rgb(var(--white));
+}
+
+.userContainer ul {
+  justify-content: flex-end;
+}
+
+.filtersContainer li,
+.userContainer li {
+  position: relative;
+  cursor: pointer;
+}
+
+.filtersContainer li:hover::after,
+.userContainer li:hover::after {
+  width: 0;
+  transition: all 0.3s ease;
+}
+
+.filtersContainer li::after,
+.userContainer li::after {
+  position: absolute;
+  content: "";
+  height: 2px;
+  bottom: -2px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: rgb(var(--white));
+}
+
+.userContainer img {
+  width: 30px;
+  filter: invert(100%) sepia(92%) saturate(290%) hue-rotate(105deg)
+    brightness(115%) contrast(102%);
+}
+
+.userContainer li:last-child {
+  position: relative;
+}
+
+.userContainer li:last-child::after {
+  width: 0;
+}
+
+.cartBubble {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  background-color: rgb(var(--fucsia-darker));
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  color: rgb(var(--white));
+  font-size: 10px;
+  text-align: center;
+}
+
+/* ----- MAIN ----- */
+
+/* HERO */
+
+.hero {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero img {
+  width: 400px;
+}
+
+.heroText {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+}
+
+.heroText img {
+  width: 150px;
+  /* border: 2px solid red; */
+}
+
+.heroText span {
+  font-weight: 700;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: rgb(var(--black));
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+.heroText span::before,
+.heroText span::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "";
+}
