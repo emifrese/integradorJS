@@ -228,3 +228,11 @@ header {
   right: 0;
   content: "";
 }
+
+/* PRODUCT */
+
+.cardProduct {
+  width: 200px;
+  height: 300px;
+  border: 2px solid black
+}
