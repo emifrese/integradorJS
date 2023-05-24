@@ -4,7 +4,7 @@ const getInfo = async () => {
   const data = await fetch("https://api.mercadolibre.com/sites/MLA", {
     method: "get",
     headers: {
-      Authorization: "XDAEKD0KZfPoEXWP3uGgyDYeAJ4x7uO0",
+      Authorization: "Bearer XDAEKD0KZfPoEXWP3uGgyDYeAJ4x7uO0",
     },
   });
 
