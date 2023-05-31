@@ -1,5 +1,7 @@
 :root {
-  --card-shadow: 0 7px 16px 0 rgba(0, 0, 0, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 7px 16px 0 rgba(0, 0, 0, 0.2),
+    0 1px 3px 0 rgba(0, 0, 0, 0.1);
   --black: 5, 4, 5;
   --yellow-logo: 254, 247, 33;
   --yellow-logo-darker: 218, 211, 0;
@@ -27,9 +29,6 @@ header {
   height: 100px;
   padding: 0 4rem;
   display: flex;
-}
-
-.logoImgContainer {
 }
 
 .logoImgContainer img {
@@ -182,6 +181,11 @@ header {
 
 /* ----- MAIN ----- */
 
+main {
+  border: 2px solid green;
+  padding: 0 10rem;
+}
+
 /* HERO */
 
 .hero {
@@ -198,13 +202,11 @@ header {
 
 .heroText {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
 }
 
 .heroText img {
   width: 150px;
-  /* border: 2px solid red; */
 }
 
 .heroText span {
@@ -231,8 +233,105 @@ header {
 
 /* PRODUCT */
 
+.products {
+  padding: 0 6rem;
+  width: 100%;
+  position: relative;
+}
+
+.productsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
 .cardProduct {
+  display: none;
+}
+
+.active {
+  display: flex;
   width: 200px;
-  height: 300px;
-  border: 2px solid black
+  max-height: 300px;
+  border-radius: 0.1rem;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition: all 1.3s ease;
+  flex-direction: column;
+  animation: appear 0.3s ease-in;
+}
+
+.cardProduct h2 {
+  overflow: hidden;
+  max-height: 30px;
+}
+
+.cardProduct img {
+  aspect-ratio: initial;
+  max-height: 100px;
+  object-fit: contain;
+  border-bottom: 0.1px solid rgba(var(--grey), 0.3);
+}
+
+.cardProduct:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.productDescription {
+  opacity: 0;
+}
+
+#prev {
+  left: 0;
+}
+
+#next {
+  right: 0;
+}
+
+.productsButtons {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  border: none;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(var(--white));
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.productsButtons:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* 
+.cardProduct:hover > .productDescription {
+  opacity: 1;
+  transition: visibility 1.3s ease;
+} */
+
+.displayNone {
+  display: none;
+}
+
+/* PRODUCT */
+
+.categoriesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  grid-template-columns: 100px 100px;
+
+}
+
+.cardCategory {
+  border: 2px solid blue;
+
 }

@@ -11,14 +11,30 @@
   }
 }
 
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .heroText span::before {
   background-color: rgb(var(--white));
   animation: typewriter 1.2s 1.4s steps(11) forwards;
 }
 
 .heroText span::after {
-    width: 0.1rem;
-    background: rgb(var(--black));
-    animation: typewriter 1.2s 1.4s steps(11) forwards,
+  width: 0.1rem;
+  background: rgb(var(--black));
+  animation: typewriter 1.2s 1.4s steps(11) forwards,
     blink 0.8s steps(11) infinite;
+}
+
+.cardProduct:hover > .productDescription {
+  animation: ease-out appear 0.3s forwards ;
 }
