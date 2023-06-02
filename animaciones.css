@@ -23,6 +23,23 @@
   }
 }
 
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideDown {
+  0% {opacity: 0; transform: translateY(-3rem)}
+  100% {opacity: 1; transform: translateY(0)}
+}
+
 .heroText span::before {
   background-color: rgb(var(--white));
   animation: typewriter 1.2s 1.4s steps(11) forwards;
@@ -37,4 +54,8 @@
 
 .cardProduct:hover > .productDescription {
   animation: ease-out appear 0.3s forwards ;
+}
+
+.socialMedia img:hover {
+  animation: floating 2s ease-in-out infinite;
 }

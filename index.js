@@ -10,9 +10,11 @@
 // testButton.addEventListener("click", getInfo);
 
 // Elements
-const nextButton = document.querySelector("#next");
-const prevButton = document.querySelector("#prev");
+const nextProduct = document.querySelector("#nextProduct");
+const prevProduct = document.querySelector("#prevProduct");
 const productsContainer = document.querySelector(".productsContainer");
+const nextCategories = document.querySelector("#nextCategories");
+const prevCategories = document.querySelector("#prevCategories");
 const categoriesContainer = document.querySelector(".categoriesContainer");
 
 const productsDisplay = products
@@ -22,14 +24,29 @@ const productsDisplay = products
 productsContainer.innerHTML += productsDisplay;
 const productsCarousel = [...productsContainer.children];
 
-const categoriesDisplay = categories.map(category => cardCategory(category)).join("")
+const categoriesDisplay = categories
+  .map((category) => cardCategory(category))
+  .join("");
 categoriesContainer.innerHTML += categoriesDisplay;
+const categoriesCarousel = [...categoriesContainer.children];
 
 // init function
 (() => {
-  initializeCarousel(4);
-  !prevAvailable() && prevButton.classList.add("displayNone");
-  productsCarousel.length <= 4 && nextButton.classList.add("displayNone");
-  nextButton.addEventListener("click", () => nextCarousel(4));
-  prevButton.addEventListener("click", () => prevCarousel(4));
+  initializeCarousel(4, productsCarousel);
+  initializeCarousel(16, categoriesCarousel);
+  !prevAvailable(productsCarousel) && prevProduct.classList.add("displayNone");
+  productsCarousel.length <= 4 && nextProduct.classList.add("displayNone");
+  nextProduct.addEventListener("click", () =>
+    nextCarousel(4, productsCarousel, nextProduct, prevProduct)
+  );
+  prevProduct.addEventListener("click", () =>
+    prevCarousel(4, productsCarousel, nextProduct, prevProduct)
+  );
+  !prevAvailable(categoriesCarousel) && prevCategories.classList.add("displayNone")
+  nextCategories.addEventListener("click", () =>
+    nextCarousel(16, categoriesCarousel, nextCategories, prevCategories)
+  );
+  prevCategories.addEventListener("click", () =>
+    prevCarousel(16, categoriesCarousel, nextCategories, prevCategories)
+  );
 })();

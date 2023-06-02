@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="./animaciones.css" />
   </head>
   <body>
+    <div class="backdrop">
+      <div class="overlay"></div>
+      <div class="modalContainer">
+        <div class="modal"></div>
+      </div>
+    </div>
     <header>
       <figure class="logoImgContainer">
         <img src="./assets/images/logo400-removebg-preview.png" alt="" />
@@ -34,7 +40,7 @@
           <div class="dealsButtonContainer">Suscribite a OPEN MARKET</div>
         </div>
         <div class="bottomHeader">
-          <div class="filtersContainer">
+          <div class="headerButtons">
             <ul>
               <li><a>Categorías</a></li>
               <li><a>Ofertas</a></li>
@@ -69,21 +75,38 @@
       </section>
       <section class="products" id="productsContainer">
         <div class="productsContainer"></div>
-        <button class="productsButtons" id="prev">
+        <button class="productsButtons" id="prevProduct">
           <img src="./assets/images/prev.svg" alt="" />
         </button>
-        <button class="productsButtons" id="next">
+        <button class="productsButtons" id="nextProduct">
           <img src="./assets/images/next.svg" alt="" />
         </button>
       </section>
       <section class="categories">
-        <div class="categoriesContainer">
-        </div>
-        <button class="categoriesButtons">PREV</button>
-        <button class="categoriesButtons">NEXT</button>
+        <div class="categoriesContainer"></div>
+        <button class="productsButtons" id="prevCategories">
+          <img src="./assets/images/prev.svg" alt="" />
+        </button>
+        <button class="productsButtons" id="nextCategories">
+          <img src="./assets/images/next.svg" alt="" />
+        </button>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <nav class="footerNavBar">
+        <ul>
+          <li>Trabaja con nosotros</li>
+          <li>Terminos y condiciones</li>
+          <li>Acerca de nosotros</li>
+          <li>Ayuda</li>
+        </ul>
+      </nav>
+      <div class="socialMedia">
+        <a href="#"><img src="./assets/images/twitter.svg" alt="" /></a>
+        <a href="#"><img src="./assets/images/instagram.svg" alt="" /> </a>
+        <a href="#"><img src="./assets/images/facebook.svg" alt="" /></a>
+      </div>
+    </footer>
     <script src="./fakeAPI.js"></script>
     <script src="./helpers.js"></script>
     <script src="./index.js"></script>
