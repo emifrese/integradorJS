@@ -7,26 +7,22 @@ const cardProduct = ({
   seller,
 }) => {
   return `<div class="cardProduct displayNone">
-            <h2>${title}</h2>
-            ${
-              original_price
-                ? `<p class="originalPrice">${original_price}</p>`
-                : ""
-            }
             <img src=${thumbnail} alt="">
             <div class="productDescription">
-                <strong>${price}</strong>
-                <p>Monitor gamer Philips V221V8 LCD 21.5" negro 100V/240V</p>
+            ${
+              original_price
+                ? `<p class="originalPrice">$${original_price}</p>`
+                : ""
+            }
+                <strong>$${price}</strong>
+                <p class="productTitle">${title}</p>
             </div>
           </div>`;
 };
 
 const cardCategory = ({ id, name }) => {
   return `<div id=${id} class="cardCategory displayNone">
-              <figure>
-                <img src="" alt="" />
-                <figcaption>${name}</figcaption>
-              </figure>
+                <a href="#">${name}</a>
           </div>`;
 };
 

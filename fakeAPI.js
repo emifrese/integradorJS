@@ -4,7 +4,7 @@ const products = [
         title: "Moto G5 Plus 32 Gb Oro Fino 2 Gb Ram",
         thumbnail: "http://http2.mlstatic.com/D_612199-MLA40645964413_022020-I.jpg",
         price: 65250,
-        original_price: null,
+        original_price: 80000,
         seller: {
             id: "aa1",
             nickname: "vendedorML1"
@@ -263,5 +263,3 @@ const categories = [
       "name": "Otras categorías"
     }
   ]
-
-  console.log(categories.length)

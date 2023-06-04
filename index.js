@@ -16,6 +16,7 @@ const productsContainer = document.querySelector(".productsContainer");
 const nextCategories = document.querySelector("#nextCategories");
 const prevCategories = document.querySelector("#prevCategories");
 const categoriesContainer = document.querySelector(".categoriesContainer");
+const logoImg = document.querySelector(".logoImgContainer");
 
 const productsDisplay = products
   .map((product) => cardProduct(product))
@@ -25,6 +26,7 @@ productsContainer.innerHTML += productsDisplay;
 const productsCarousel = [...productsContainer.children];
 
 const categoriesDisplay = categories
+  .sort((a, b) => parseInt(a.id.slice(3)) - parseInt(b.id.slice(3)))
   .map((category) => cardCategory(category))
   .join("");
 categoriesContainer.innerHTML += categoriesDisplay;
@@ -42,11 +44,13 @@ const categoriesCarousel = [...categoriesContainer.children];
   prevProduct.addEventListener("click", () =>
     prevCarousel(4, productsCarousel, nextProduct, prevProduct)
   );
-  !prevAvailable(categoriesCarousel) && prevCategories.classList.add("displayNone")
+  !prevAvailable(categoriesCarousel) &&
+    prevCategories.classList.add("displayNone");
   nextCategories.addEventListener("click", () =>
     nextCarousel(16, categoriesCarousel, nextCategories, prevCategories)
   );
   prevCategories.addEventListener("click", () =>
     prevCarousel(16, categoriesCarousel, nextCategories, prevCategories)
   );
+  logoImg.addEventListener("click", () => location.replace("./index.html"))
 })();

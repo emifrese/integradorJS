@@ -28,6 +28,8 @@
     transform: translateY(0px);
   }
   50% {
+    filter: invert(71%) sepia(50%) saturate(5328%) hue-rotate(276deg)
+    brightness(96%) contrast(91%);
     transform: translateY(-10px);
   }
   100% {
@@ -38,6 +40,17 @@
 @keyframes slideDown {
   0% {opacity: 0; transform: translateY(-3rem)}
   100% {opacity: 1; transform: translateY(0)}
+}
+
+.dealsButtonContainer:hover {
+  background-color: rgb(var(--yellow-logo));
+  transform: all 0.3s ease;
+}
+
+.headerButtons li:hover::after,
+.userContainer li:hover::after {
+  width: 0;
+  transition: all 0.3s ease;
 }
 
 .heroText span::before {
@@ -52,10 +65,42 @@
     blink 0.8s steps(11) infinite;
 }
 
-.cardProduct:hover > .productDescription {
-  animation: ease-out appear 0.3s forwards ;
+.cardProduct:hover > .productDescription p {
+  opacity: 1;
+  transition: all 0.3s ease;
+  /* animation: ease-out appear 0.3s forwards ; */
 }
+
+.cardProduct:hover > .productDescription .originalPrice  {
+  max-height: 20px;
+}
+
+/* .cardProduct:hover > .productDescription p {
+  animation: ease-out appear 0.3s forwards ;
+} */
 
 .socialMedia img:hover {
   animation: floating 2s ease-in-out infinite;
+}
+
+.cardProduct:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.productsButtons:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.cardCategory:hover > a {
+  color: rgb(var(--fucsia-darker));
+  transition: all 0.3s ease;
+}
+
+.cardCategory:hover {
+  box-shadow: var(--card-shadow-hover);
+  transition: all 0.3s ease;
+}
+
+.footerNavBar li:hover {
+  color: rgb(var(--grey));
 }

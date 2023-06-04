@@ -1,0 +1,74 @@
+main {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.registerForm {
+    border-radius: 0.5rem;
+    box-shadow: var(--card-shadow-hover);
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 1rem 0;
+    padding: 2rem 3rem;
+}
+
+.registerForm h1 {
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.registerForm label {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.registerForm input {
+    min-width: 300px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 0.5px solid;
+    margin-bottom: 16px;
+}
+
+.registerForm input:focus {
+    outline: none;
+    border-color: rgb(var(--fucsia))
+}
+
+.registerForm label:has(input:focus) {
+    color: rgb(var(--fucsia-darker));
+    transition: all 0.3s ease
+}
+
+#terms {
+    min-width: unset;
+    margin: 0;
+    margin-right: 5px;
+}
+
+label:has(#terms) {
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.registerButton {
+    width: 100px;
+    align-self: center;
+    background-color: rgb(var(--fucsia-darker));
+    color: rgb(var(--white));
+    padding: 0.5rem;
+    border: 1px solid rgb(var(--fucsia));
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.registerButton:hover {
+    transition: all 0.3s ease;
+    background-color: rgb(var(--fucsia));
+}

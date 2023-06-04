@@ -1,0 +1,89 @@
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.loginInstructions,
+.loginSection {
+  padding: 3rem;
+  margin: 3rem 0;
+  width: 50%;
+}
+
+.loginInstructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.loginInstructions a{
+    color: rgb(var(--orange-darker));
+    text-decoration: unset;
+    transition: all 0.3 ease;
+}
+
+.loginInstructions a:hover{
+    color:rgb(var(--orange))
+}
+
+.loginSection {
+}
+
+.loginCard {
+  width: 500px;
+  height: 200px;
+  box-shadow: var(--card-shadow-hover);
+  border-radius: 0.5rem;
+}
+
+.loginCard label {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem 1rem;
+}
+
+.loginCard input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.5px solid;
+}
+
+.loginCard input:focus {
+  outline: none;
+  border-color: rgb(var(--fucsia));
+}
+
+.loginButtons {
+  margin-top: 2rem;
+}
+
+.loginButtons button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.loginButtons button:first-child {
+  background-color: rgb(var(--fucsia));
+  color: rgb(var(--white));
+  border: 1px solid rgb(var(--fucsia-darker));
+}
+
+.loginButtons button:first-child:hover {
+  background-color: rgb(var(--fucsia-darker));
+}
+
+.loginButtons button:last-child {
+  background-color: rgb(var(--white));
+  color: rgb(var(--fucsia-darker));
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.loginButtons button:last-child:hover {
+  color: rgb(var(--fucsia));
+}
