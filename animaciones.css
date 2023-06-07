@@ -68,16 +68,16 @@
 .cardProduct:hover > .productDescription p {
   opacity: 1;
   transition: all 0.3s ease;
-  /* animation: ease-out appear 0.3s forwards ; */
 }
 
 .cardProduct:hover > .productDescription .originalPrice  {
   max-height: 20px;
 }
 
-/* .cardProduct:hover > .productDescription p {
-  animation: ease-out appear 0.3s forwards ;
-} */
+.productDescription button:hover {
+  background-color: rgb(var(--fucsia));
+  transition: all 0.3s ease;
+}
 
 .socialMedia img:hover {
   animation: floating 2s ease-in-out infinite;
@@ -98,9 +98,15 @@
 
 .cardCategory:hover {
   box-shadow: var(--card-shadow-hover);
+  transform: scale(1.1);
   transition: all 0.3s ease;
 }
 
 .footerNavBar li:hover {
   color: rgb(var(--grey));
+}
+
+.amountContainer button:hover {
+  background-color: rgb(var(--fucsia));
+  transition: all 0.3s ease;
 }

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./signup.css">
   </head>
   <body>
+    <div class="overlay">
+    </div>
     <header>
       <figure class="logoImgContainer">
         <img src="./assets/images/logo400-removebg-preview.png" alt="" />
@@ -21,33 +23,40 @@
     </header>
     <main>
         <form class="registerForm">
-            <h1>Registrate para poder empezar a comprar o vender en <em>Open Market</em></h1>
+            <h1>Registrate y empieza a comprar o vender <em>Open Market</em></h1>
             <label for="name">
                 Nombre
-                <input type="text">
+                <input type="text" name="name" id="name">
+                <p class="displayNone"></p>
             </label>
             <label for="surname">
                 Apellido
-                <input type="text">
+                <input type="text" name="surname" id="surname">
+                <p class="displayNone"></p>
             </label>
             <label for="email">
                 Email
-                <input type="email" name="" id="">
+                <input type="email" name="email" id="email">
+                <p class="displayNone"></p>
             </label>
             <label for="password">
                 Contraseña
                 <input type="password" name="password" id="password">
+                <p class="displayNone"></p>
             </label>
             <label for="repeatPassword">
                 Repeti la Contraseña
                 <input type="password" name="repeatPassword" id="repeatPassword">
+                <p class="displayNone"></p>
             </label>
             <label for="terms">
-                Acepta los&nbsp;<a href="#">Términos y condiciones</a>
+                <a href="#">Términos y condiciones</a>
                 <input type="checkbox" name="terms" id="terms">
             </label>
             <button type="submit" class="registerButton">Registrate</button>
         </form>
     </main>
+    <script src="./modal.js"></script>
+    <script src="./signUp.js"></script>
   </body>
 </html>

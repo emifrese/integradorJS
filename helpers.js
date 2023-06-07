@@ -16,6 +16,7 @@ const cardProduct = ({
             }
                 <strong>$${price}</strong>
                 <p class="productTitle">${title}</p>
+                <button>Agregar al carrito</button>
             </div>
           </div>`;
 };
