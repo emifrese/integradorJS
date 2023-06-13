@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./login.css" />
   </head>
   <body>
+    <div class="overlay">
+    </div>
     <header>
       <figure class="logoImgContainer">
         <img src="./assets/images/logo400-removebg-preview.png" alt="" />
@@ -25,18 +27,19 @@
         <a href="#">Necesitas ayuda?</a>
       </div>
       <div class="loginSection">
-        <form class="loginCard">
+        <form class="loginForm">
           <label for="email">
             E-mail
-            <input type="email" />
-            <div class="loginButtons">
-              <button type="button">Continuar</button>
-              <button type="button">Crea cuenta</button>
-            </div>
+            <input type="email" name="email" id="email" />
           </label>
+          <div class="loginButtons">
+            <button type="button" id="continue">Continuar</button>
+            <button type="button" id="create">Crea cuenta</button>
+          </div>
         </form>
       </div>
     </main>
-  <script src="./login.js"></script>
+    <script src="./modal.js"></script>
+    <script src="./login.js"></script>
   </body>
 </html>

@@ -55,9 +55,7 @@ const submitRegisterHandler = (e) => {
   const password = inputValues.filter((input) => input.input.id === "password");
   const repeatPassword = inputValues.filter((input) => input.input.id === "repeatPassword")
   const email = inputValues.filter((input) => input.input.id === "email");
-  // validacion genera
-  
-  console.log(validForm)
+  // validacion general
 
   //  inputs vacios
   const emptyInput = isEmpty(inputValues);
@@ -72,7 +70,6 @@ const submitRegisterHandler = (e) => {
     email[0].value !== "" &&
     !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email[0].value)
   ) {
-    console.log('email error')
     manageErrors([{...email[0], isError: true}], "Ingrese un mail válido");
     validForm = false;
   }
@@ -85,7 +82,6 @@ const submitRegisterHandler = (e) => {
     validForm = false;
   }
   // usuario repetido
-  console.log(existingUsers.find(user => user.email === email[0].value))
   if(existingUsers.length > 0 && existingUsers.find(user => user.email === email[0].value)){
     manageErrors([{...email[0], isError: true}], "Ese email ya fue utilizado")
     validForm = false;
@@ -108,7 +104,7 @@ const submitRegisterHandler = (e) => {
   localStorage.setItem("users", JSON.stringify(newUsersArray))
 
   // logearlo
-  location.replace("./index.html")
+  location.replace("./login.html")
 };
 
 (() => {

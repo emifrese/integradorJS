@@ -17,6 +17,7 @@ const nextCategories = document.querySelector("#nextCategories");
 const prevCategories = document.querySelector("#prevCategories");
 const categoriesContainer = document.querySelector(".categoriesContainer");
 const logoImg = document.querySelector(".logoImgContainer");
+const userLinks = document.querySelector(".userLinks");
 
 const productsDisplay = products
   .map((product) => cardProduct(product))
@@ -52,5 +53,5 @@ const categoriesCarousel = [...categoriesContainer.children];
   prevCategories.addEventListener("click", () =>
     prevCarousel(16, categoriesCarousel, nextCategories, prevCategories)
   );
-  logoImg.addEventListener("click", () => location.replace("./index.html"))
+  logoImg.addEventListener("click", () => location.replace("./index.html"));
 })();
