@@ -8,7 +8,7 @@ const repeatPasswordInput = document.querySelector("#repeatPassword");
 const termsAndConditions = document.querySelector("#terms");
 const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-console.log(existingUsers)
+console.log(existingUsers);
 
 const isEmpty = (inputsArray) => {
   return inputsArray.map((input) =>
@@ -21,7 +21,7 @@ const isEmpty = (inputsArray) => {
 const manageErrors = (array, msg) => {
   for (let input of array) {
     const errorElement = input.input.parentElement.children[1];
-    if(input.isError){
+    if (input.isError) {
       if (input.input.id !== "terms") {
         errorElement.innerText = msg;
         errorElement.classList.remove("displayNone");
@@ -30,7 +30,7 @@ const manageErrors = (array, msg) => {
         showModal("Acepta los terminos y condiciones");
       }
     } else {
-      if(input.input.id !== "terms"){
+      if (input.input.id !== "terms") {
         errorElement.innerText = "";
         errorElement.classList.add("displayNone");
         errorElement.classList.remove("inputError");
@@ -41,7 +41,7 @@ const manageErrors = (array, msg) => {
 
 const submitRegisterHandler = (e) => {
   e.preventDefault();
-  let validForm = true;
+  // let validForm = false;
 
   const inputValues = [
     { value: nameInput.value.trim(), input: nameInput },
@@ -53,7 +53,9 @@ const submitRegisterHandler = (e) => {
   ];
 
   const password = inputValues.filter((input) => input.input.id === "password");
-  const repeatPassword = inputValues.filter((input) => input.input.id === "repeatPassword")
+  const repeatPassword = inputValues.filter(
+    (input) => input.input.id === "repeatPassword"
+  );
   const email = inputValues.filter((input) => input.input.id === "email");
   // validacion general
 
@@ -61,8 +63,8 @@ const submitRegisterHandler = (e) => {
   const emptyInput = isEmpty(inputValues);
   if (emptyInput.length > 0) {
     manageErrors(emptyInput, "El campo no debe estar vacío");
-    if(emptyInput.some(input => input.isEmpty)){
-      validForm = false
+    if (emptyInput.some((input) => input.isEmpty)) {
+      return;
     }
   }
   // email no valido
@@ -70,41 +72,48 @@ const submitRegisterHandler = (e) => {
     email[0].value !== "" &&
     !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email[0].value)
   ) {
-    manageErrors([{...email[0], isError: true}], "Ingrese un mail válido");
-    validForm = false;
+    manageErrors([{ ...email[0], isError: true }], "Ingrese un mail válido");
+    return;
   }
   // contraseñas no coinciden
   if (password[0].value !== repeatPassword[0].value) {
     manageErrors(
-      [{...password[0], isError: true}, {...repeatPassword[0], isError: true}],
+      [
+        { ...password[0], isError: true },
+        { ...repeatPassword[0], isError: true },
+      ],
       "Las contraseñas no coinciden"
     );
-    validForm = false;
+    return;
   }
   // usuario repetido
-  if(existingUsers.length > 0 && existingUsers.find(user => user.email === email[0].value)){
-    manageErrors([{...email[0], isError: true}], "Ese email ya fue utilizado")
-    validForm = false;
+  if (
+    existingUsers.length > 0 &&
+    existingUsers.find((user) => user.email === email[0].value)
+  ) {
+    manageErrors(
+      [{ ...email[0], isError: true }],
+      "Ese email ya fue utilizado"
+    );
+    return;
   }
 
-  if(!validForm){
-    return
-  }
-  
   // guardar usuario
   const newUser = {
+    name: inputValues[0].value,
+    surname: inputValues[1].value,
     email: email[0].value,
     password: password[0].value,
     shoppingCart: [],
     likes: [],
-  }
+  };
 
-  const newUsersArray = [...existingUsers, newUser]
+  const newUsersArray = [...existingUsers, newUser];
 
-  localStorage.setItem("users", JSON.stringify(newUsersArray))
+  localStorage.setItem("users", JSON.stringify(newUsersArray));
 
   // logearlo
-  location.replace("./login.html")
+  location.replace("./login.html");
 };
 
 (() => {

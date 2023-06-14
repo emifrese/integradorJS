@@ -74,6 +74,11 @@
 .cartContainer li {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid;
+}
+
+.cartContainer li:last-child {
+  border: unset
 }
 
 .cartItemContainer {
@@ -385,7 +390,7 @@ main {
   color: rgba(var(--black), 0.8)
 }
 
-.productDescription button {
+.itemButton {
   margin: 1rem 0;
   border: 1px solid rgb(var(--fucsia-darker));
   padding: 0.5rem 1rem;

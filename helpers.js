@@ -16,7 +16,7 @@ const cardProduct = ({
             }
                 <strong>$${price}</strong>
                 <p class="productTitle">${title}</p>
-                <button>Agregar al carrito</button>
+                <button class="itemButton">Agregar al carrito</button>
             </div>
           </div>`;
 };
@@ -84,11 +84,69 @@ const prevCarousel = (n, carouselArray, nextButton, prevButton) => {
 };
 
 const prevAvailable = (carouselArray) => {
-  console.log(carouselArray);
   return carouselArray.findIndex((el) => el.className.includes("active"));
 };
 
 const nextAvailable = (carouselArray) => {
-  console.log(carouselArray);
   return carouselArray.findLastIndex((el) => el.className.includes("active"));
+};
+
+const logoutHandler = () => {
+  showModal("Usted esta saliendo de su cuenta");
+  localStorage.removeItem("currentUser");
+  setTimeout(() => location.reload(), 1500);
+};
+
+const loadUserInfo = (user, links) => {
+  const welcomeButton = links.children[0];
+  console.log(welcomeButton.children[0], user);
+  welcomeButton.children[0].innerText = `Hola ${user[0].name}`;
+  welcomeButton.children[0].removeAttribute("href");
+  welcomeButton.children[0].style.cursor = "default";
+
+  const logOutButton = links.children[1];
+  logOutButton.children[0].innerText = "Salir";
+  logOutButton.children[0].removeAttribute("href");
+  logOutButton.addEventListener("click", logoutHandler);
+};
+
+const editCart = (addItem, cart) => {
+  //chequear si ya esta en el carrito
+  console.log(cart.some((item) => item.id === addItem.id));
+};
+
+const renderCartItems = (cartItems) => {
+  return cartItems.map((item) => {
+    const { id, title, price, amount, thumbnail } = item;
+    return `
+    <li>
+      <div class="cartItemContainer">
+        <div class="cartItemInfo">
+          <p>${title}</p>
+          <div class="amountContainer">
+            ${amount > 1 ? "<button>-</button>" : ""}
+            <p class="itemAmount">x${amount}</p>
+            <button>+</button>
+          </div>
+        </div>
+        <img
+          src=${thumbnail}
+          alt=""
+        />
+      </div>
+      <p>$${amount * price}</p>
+    </li>`;
+  });
+};
+
+const showCart = (cartItems) => {
+  const cartList = renderCartItems(cartItems);
+  showModal(`
+      <div class="cartContainer">
+        <h2>Tu carrito</h2>
+        <ul>
+          ${cartList}
+        </ul>      
+      </div>
+  `);
 };

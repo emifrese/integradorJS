@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="./animaciones.css" />
   </head>
   <body>
-    <div class="overlay">
-    </div>
-    </div>
+    <div class="overlay"></div>
     <header>
       <figure class="logoImgContainer">
         <img src="./assets/images/logo400-removebg-preview.png" alt="" />
@@ -51,7 +49,11 @@
               <li><a>Mis Compras</a></li>
               <li>
                 <figure>
-                  <img src="./assets/images/shoppingCart.svg" alt="" />
+                  <img
+                    id="cartIcon"
+                    src="./assets/images/shoppingCart.svg"
+                    alt=""
+                  />
                   <div class="cartBubble">0</div>
                 </figure>
               </li>
@@ -69,7 +71,7 @@
         </div>
         <img src="./assets/images/heroImg.png" alt="" />
       </section>
-      <section class="products" id="productsContainer">
+      <section class="products">
         <h2>Ofertas</h2>
         <div class="productsContainer"></div>
         <button class="productsButtons" id="prevProduct">

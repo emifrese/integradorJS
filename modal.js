@@ -5,8 +5,7 @@ const modalCard = (content) => {
     <div class="backdrop"></div>
     <div class="modalContainer">
     <div class="modal">${content}</div>
-    </div>
-    `;
+    </div>`;
   };
   
   const showModal = (modalContent) => {
