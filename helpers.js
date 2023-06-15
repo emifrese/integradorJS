@@ -1,11 +1,4 @@
-const cardProduct = ({
-  id,
-  title,
-  thumbnail,
-  price,
-  original_price,
-  seller,
-}) => {
+const cardProduct = ({ id, title, thumbnail, price, original_price }) => {
   return `<div class="cardProduct displayNone">
             <img src=${thumbnail} alt="">
             <div class="productDescription">
@@ -16,7 +9,13 @@ const cardProduct = ({
             }
                 <strong>$${price}</strong>
                 <p class="productTitle">${title}</p>
-                <button class="itemButton">Agregar al carrito</button>
+                <button 
+                class="itemButton" 
+                data-id=${id} 
+                data-title=${title.replaceAll(" ", "-")}
+                data-price=${price}
+                data-img=${thumbnail}
+                >Agregar al carrito</button>
             </div>
           </div>`;
 };
@@ -110,43 +109,123 @@ const loadUserInfo = (user, links) => {
   logOutButton.addEventListener("click", logoutHandler);
 };
 
-const editCart = (addItem, cart) => {
-  //chequear si ya esta en el carrito
-  console.log(cart.some((item) => item.id === addItem.id));
+const editCart = (addItem) => {
+  if (!addItem.classList.contains("itemButton")) return;
+  let newCart;
+  let itemIndex = appState.shoppingCart.findIndex(
+    (item) => parseInt(item.id) === parseInt(addItem.dataset.id)
+  );
+  if (itemIndex !== -1) {
+    newCart = [...appState.shoppingCart];
+    newCart[itemIndex] = {
+      ...newCart[itemIndex],
+      amount: newCart[itemIndex].amount + 1,
+    };
+  } else {
+    const { title, price, id, img } = addItem.dataset;
+    newCart = [
+      ...appState.shoppingCart,
+      {
+        title,
+        price,
+        id: parseInt(id),
+        img,
+        amount: 1,
+      },
+    ];
+  }
+  // hacemos la copia con la modificacion del currentUser
+  const newUserInfo = [{ ...currentUser[0], shoppingCart: newCart }];
+  // hacemos la copia con la modificacion de usuarios
+  const userIndex = existingUsers.findIndex(
+    (user) => user.email === currentUser[0].email
+  );
+  const newUsersInfo = [...existingUsers];
+  newUsersInfo[userIndex] = newUserInfo[0];
+  // actualizamos la informacion en el localStorage
+  localStorage.setItem("currentUser", JSON.stringify(newUserInfo));
+  localStorage.setItem("users", JSON.stringify(newUsersInfo));
+  // actualizamos el appState
+  appState.shoppingCart = newCart;
+  // actualizamos el bubble cart
+  cartBubble.innerHTML = appState.shoppingCart.length;
 };
 
-const renderCartItems = (cartItems) => {
-  return cartItems.map((item) => {
-    const { id, title, price, amount, thumbnail } = item;
-    return `
+const renderCartItems = () => {
+  const cartList = document.querySelector(".cartList");
+  cartList.innerHTML = appState.shoppingCart
+    .map((item) => {
+      const { id, title, price, amount, img } = item;
+      const newTitle = `${title.replaceAll("-", " ").substring(0, 30)}...`;
+      return `
     <li>
       <div class="cartItemContainer">
         <div class="cartItemInfo">
-          <p>${title}</p>
+          <p>${newTitle}</p>
           <div class="amountContainer">
-            ${amount > 1 ? "<button>-</button>" : ""}
+            ${
+              amount > 1
+                ? `<button class="button-quantity" data-type="negative" data-id=${id}>-</button>`
+                : `<button class="button-quantity" data-type="delete" data-id=${id}><img src="./assets/images/trash.svg"/></button>}`
+            }
             <p class="itemAmount">x${amount}</p>
-            <button>+</button>
+            <button class="button-quantity" data-type="positive" data-id=${id}>+</button>
           </div>
         </div>
         <img
-          src=${thumbnail}
+          src=${img}
           alt=""
         />
       </div>
       <p>$${amount * price}</p>
     </li>`;
-  });
+    })
+    .join("");
+  cartBubble.innerHTML = appState.shoppingCart.length;
 };
 
-const showCart = (cartItems) => {
-  const cartList = renderCartItems(cartItems);
+const showCart = () => {
   showModal(`
-      <div class="cartContainer">
-        <h2>Tu carrito</h2>
-        <ul>
-          ${cartList}
-        </ul>      
-      </div>
+  <div class="cartContainer">
+  <h2>Tu carrito</h2>
+  <ul class="cartList">
+  </ul>      
+  </div>
   `);
+  renderCartItems();
+};
+
+const modifyItems = (e) => {
+  if (!e.target.classList.contains("button-quantity")) return;
+  const { id, type } = e.target.dataset;
+  const itemIndex = appState.shoppingCart.findIndex(
+    (item) => item.id === parseInt(id)
+  );
+  let newCart = [...appState.shoppingCart];
+  if (type === "positive") {
+    newCart[itemIndex] = {
+      ...newCart[itemIndex],
+      amount: newCart[itemIndex].amount + 1,
+    };
+  } else {
+    newCart[itemIndex] = {
+      ...newCart[itemIndex],
+      amount: newCart[itemIndex].amount - 1,
+    };
+  }
+  // hacemos la copia con la modificacion del currentUser
+  const newUserInfo = [{ ...currentUser[0], shoppingCart: newCart }];
+  // hacemos la copia con la modificacion de usuarios
+  const userIndex = existingUsers.findIndex(
+    (user) => user.email === currentUser[0].email
+  );
+  const newUsersInfo = [...existingUsers];
+  newUsersInfo[userIndex] = newUserInfo[0];
+  // actualizamos la informacion en el localStorage
+  localStorage.setItem("currentUser", JSON.stringify(newUserInfo));
+  localStorage.setItem("users", JSON.stringify(newUsersInfo));
+  // actualizamos el appState
+  appState.shoppingCart = newCart;
+  // renderizamos el cambio
+  renderCartItems();
 };
