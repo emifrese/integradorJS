@@ -106,6 +106,7 @@ const submitRegisterHandler = (e) => {
     password: password[0].value,
     shoppingCart: [],
     likes: [],
+    itemsBought: [],
   };
 
   const newUsersArray = [...existingUsers, newUser];

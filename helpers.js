@@ -1,6 +1,12 @@
 const cardProduct = ({ id, title, thumbnail, price, original_price }) => {
+  //chequear si esta en favoritos
+  const isLiked = appState.likes.some((itemLiked) => itemLiked === id);
+  console.log(isLiked);
   return `<div class="cardProduct displayNone">
-            <img src=${thumbnail} alt="">
+            <img src="./assets/images/like.svg" alt="like-button" class="likeButton" data-id=${id} ${
+    isLiked && "style='opacity: 1'"
+  } />
+            <img src=${thumbnail} alt="product" class="productImg">
             <div class="productDescription">
             ${
               original_price
@@ -20,21 +26,38 @@ const cardProduct = ({ id, title, thumbnail, price, original_price }) => {
           </div>`;
 };
 
+const selectCarousel = (type) =>
+  type === "products"
+    ? [...productsContainer.children]
+    : [...categoriesContainer.children];
+
+const toRenderProducts = (products) => {
+  return products.map((product) => cardProduct(product)).join("");
+};
+
+const renderProducts = (productsToRender, container) => {
+  container.innerHTML = productsToRender;
+};
+
 const cardCategory = ({ id, name }) => {
   return `<div id=${id} class="cardCategory displayNone">
                 <a href="#">${name}</a>
           </div>`;
 };
 
-const initializeCarousel = (n, carouselArray) => {
+const initializeCarousel = (n, type) => {
+  const carouselArray = selectCarousel(type);
   let itemsPerPage = carouselArray.length < n ? carouselArray.length : n;
+  console.log(itemsPerPage);
   for (let i = 0; i < itemsPerPage; i++) {
     carouselArray[i].classList.add("active");
   }
 };
 
-const nextCarousel = (n, carouselArray, nextButton, prevButton) => {
-  const lastIndex = nextAvailable(carouselArray);
+const nextCarousel = (n, type, nextButton, prevButton) => {
+  const carouselArray = selectCarousel(type)
+  const lastIndex = nextAvailable(type);
+  console.log(carouselArray, lastIndex);
   if (lastIndex === carouselArray.length - 1) {
     return;
   }
@@ -56,12 +79,13 @@ const nextCarousel = (n, carouselArray, nextButton, prevButton) => {
   }
 };
 
-const prevCarousel = (n, carouselArray, nextButton, prevButton) => {
-  const index = prevAvailable(carouselArray);
+const prevCarousel = (n, type, nextButton, prevButton) => {
+  const carouselArray = selectCarousel(type);
+  const index = prevAvailable(type);
   if (!index) {
     return;
   }
-  const lastPageItemsDif = (nextAvailable(carouselArray) + 1) % n;
+  const lastPageItemsDif = (nextAvailable(type) + 1) % n;
   let lastPageItems = n;
   if (
     lastPageItemsDif !== 0 &&
@@ -82,11 +106,13 @@ const prevCarousel = (n, carouselArray, nextButton, prevButton) => {
   }
 };
 
-const prevAvailable = (carouselArray) => {
+const prevAvailable = (type) => {
+  const carouselArray = selectCarousel(type);
   return carouselArray.findIndex((el) => el.className.includes("active"));
 };
 
-const nextAvailable = (carouselArray) => {
+const nextAvailable = (type) => {
+  const carouselArray = selectCarousel(type);
   return carouselArray.findLastIndex((el) => el.className.includes("active"));
 };
 
@@ -153,6 +179,15 @@ const editCart = (addItem) => {
 
 const renderCartItems = () => {
   const cartList = document.querySelector(".cartList");
+  const cartContainer = document.querySelector(".cartContainer");
+  cartBubble.innerHTML = appState.shoppingCart.length;
+  if (appState.shoppingCart.length < 1) {
+    cartList.innerHTML = "<p>Elige items para comprar</p>";
+    if (cartContainer.children.length > 2) {
+      cartContainer.removeChild(cartContainer.lastElementChild);
+    }
+    return;
+  }
   cartList.innerHTML = appState.shoppingCart
     .map((item) => {
       const { id, title, price, amount, img } = item;
@@ -165,39 +200,44 @@ const renderCartItems = () => {
           <div class="amountContainer">
             ${
               amount > 1
-                ? `<button class="button-quantity" data-type="negative" data-id=${id}>-</button>`
-                : `<button class="button-quantity" data-type="delete" data-id=${id}><img src="./assets/images/trash.svg"/></button>}`
+                ? `<button class="button-quantity" data-type="negative" data-id=${id} type="button">-</button>`
+                : `<button class="button-quantity" type="button"><img src="./assets/images/trash.svg" class="deleteItem" data-type="delete" data-id=${id} /></button>`
             }
             <p class="itemAmount">x${amount}</p>
-            <button class="button-quantity" data-type="positive" data-id=${id}>+</button>
+            <button class="button-quantity" data-type="positive" data-id=${id} type="button">+</button>
           </div>
         </div>
         <img
           src=${img}
           alt=""
+          class="cartItemImg"
         />
       </div>
       <p>$${amount * price}</p>
     </li>`;
     })
     .join("");
-  cartBubble.innerHTML = appState.shoppingCart.length;
+  if (cartContainer.children.length < 3) {
+    cartContainer.innerHTML +=
+      '<button type="submit" class="cartBuyButton">Comprar</button>';
+  }
 };
 
 const showCart = () => {
   showModal(`
-  <div class="cartContainer">
+  <form class="cartContainer">
   <h2>Tu carrito</h2>
   <ul class="cartList">
   </ul>      
-  </div>
+  </form>
   `);
   renderCartItems();
 };
 
 const modifyItems = (e) => {
-  if (!e.target.classList.contains("button-quantity")) return;
   const { id, type } = e.target.dataset;
+  if (!id) return;
+  console.log("it passed");
   const itemIndex = appState.shoppingCart.findIndex(
     (item) => item.id === parseInt(id)
   );
@@ -207,11 +247,13 @@ const modifyItems = (e) => {
       ...newCart[itemIndex],
       amount: newCart[itemIndex].amount + 1,
     };
-  } else {
+  } else if (type === "negative") {
     newCart[itemIndex] = {
       ...newCart[itemIndex],
       amount: newCart[itemIndex].amount - 1,
     };
+  } else {
+    newCart = newCart.filter((item) => item.id !== parseInt(id));
   }
   // hacemos la copia con la modificacion del currentUser
   const newUserInfo = [{ ...currentUser[0], shoppingCart: newCart }];
@@ -228,4 +270,83 @@ const modifyItems = (e) => {
   appState.shoppingCart = newCart;
   // renderizamos el cambio
   renderCartItems();
+};
+
+const finishTransaction = (e) => {
+  e.preventDefault();
+  console.log("finish transaction");
+
+  // historial comprados
+  // sino existe agregar
+  appState.shoppingCart.forEach((item) => {
+    if (
+      appState.itemsBought.findIndex(
+        (itemBought) => itemBought.id === item.id
+      ) === -1
+    ) {
+      const itemCopy = { ...item };
+      delete itemCopy.amount;
+      appState.itemsBought.push(itemCopy);
+    }
+  });
+
+  // actualizar localStorage
+  // hacemos la copia con la modificacion del currentUser
+  const newUserInfo = [
+    { ...currentUser[0], shoppingCart: [], itemsBought: appState.itemsBought },
+  ];
+  // hacemos la copia con la modificacion de usuarios
+  const userIndex = existingUsers.findIndex(
+    (user) => user.email === currentUser[0].email
+  );
+  const newUsersInfo = [...existingUsers];
+  newUsersInfo[userIndex] = newUserInfo[0];
+  // actualizamos la informacion en el localStorage
+  localStorage.setItem("currentUser", JSON.stringify(newUserInfo));
+  localStorage.setItem("users", JSON.stringify(newUsersInfo));
+  // vaciar carrito en el appstate
+  appState.shoppingCart = [];
+  // actualizamos el bubble cart
+  cartBubble.innerHTML = appState.shoppingCart.length;
+  // mensaje de compra realizada
+  showModal("<p>Compra realizada</p>");
+};
+
+const addToFavorites = (e) => {
+  const { id } = e.dataset;
+
+  //chequeamos si esta en la lista de likes
+  const itemIndex = appState.likes.findIndex(
+    (itemLikedId) => parseInt(itemLikedId) === parseInt(id)
+  );
+  console.log(itemIndex);
+  let newLikes;
+  //removemos
+  if (itemIndex !== -1) {
+    newLikes = appState.likes.filter(
+      (itemLikedId) => parseInt(itemLikedId) !== parseInt(id)
+    );
+  } else {
+    //agregamos
+    appState.likes.push(parseInt(id));
+    newLikes = [...appState.likes];
+  }
+
+  // actualizamos localStorage
+  // hacemos la copia con la modificacion del currentUser
+  const newUserInfo = [{ ...currentUser[0], likes: newLikes }];
+  // hacemos la copia con la modificacion de usuarios
+  const userIndex = existingUsers.findIndex(
+    (user) => user.email === currentUser[0].email
+  );
+  const newUsersInfo = [...existingUsers];
+  newUsersInfo[userIndex] = newUserInfo[0];
+  // actualizamos la informacion en el localStorage
+  localStorage.setItem("currentUser", JSON.stringify(newUserInfo));
+  localStorage.setItem("users", JSON.stringify(newUsersInfo));
+  // actualizamos appstate
+  appState.likes = newLikes;
+
+  renderProducts(toRenderProducts(products), productsContainer);
+  initializeCarousel(4, "products");
 };

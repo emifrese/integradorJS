@@ -30,7 +30,7 @@
   width: 100%;
   z-index: 20;
   height: 100vh;
-  background-color: rgba(var(--grey), 0.4)
+  background-color: rgba(var(--grey), 0.4);
 }
 
 .modalContainer {
@@ -66,9 +66,11 @@
   row-gap: 2rem;
 }
 
-.cartContainer ul {
+.cartList {
   display: flex;
   flex-direction: column;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .cartContainer li {
@@ -78,11 +80,22 @@
 }
 
 .cartContainer li:last-child {
-  border: unset
+  border: unset;
 }
 
 .cartItemContainer {
   display: flex;
+  max-width: 400px;
+}
+
+.cartItemInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  row-gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem 0;
 }
 
 .amountContainer {
@@ -106,10 +119,21 @@
   line-height: 0;
 }
 
+.deleteItem {
+  width: 100%;
+  filter: invert(100%) sepia(0%) saturate(7427%) hue-rotate(23deg)
+    brightness(118%) contrast(118%);
+}
+
 .itemAmount {
   width: min-content;
   padding: 0.25rem;
   border-radius: 0.5rem;
+}
+
+.cartItemImg {
+  width: 25%;
+  object-fit: contain;
 }
 
 .cartBuyButton {
@@ -119,7 +143,7 @@
   border-radius: 0.5rem;
   background-color: rgb(var(--fucsia-darker));
   cursor: pointer;
-  color: rgb(var(--white))
+  color: rgb(var(--white));
 }
 
 /* ----- HEADER -----  */
@@ -260,7 +284,8 @@ header {
   width: 0;
 }
 
-.headerButtons a, .userContainer a {
+.headerButtons a,
+.userContainer a {
   color: rgb(var(--white));
   text-decoration: unset;
 }
@@ -351,6 +376,7 @@ main {
   align-items: flex-start;
 }
 
+
 .cardProduct {
   width: 200px;
   min-height: 250px;
@@ -362,6 +388,7 @@ main {
   flex-direction: column;
   animation: appear 0.3s ease-in;
   background-color: rgb(var(--white));
+  position: relative;
 }
 
 .cardProduct h2 {
@@ -369,7 +396,19 @@ main {
   max-height: 30px;
 }
 
-.cardProduct img {
+.likeButton {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 2px solid;
+  border-radius: 100%;
+  padding: 1px;
+  opacity: 0.2;
+}
+
+.productImg {
   aspect-ratio: initial;
   max-height: 120px;
   object-fit: contain;
@@ -387,7 +426,7 @@ main {
 }
 
 .productTitle {
-  color: rgba(var(--black), 0.8)
+  color: rgba(var(--black), 0.8);
 }
 
 .itemButton {
@@ -404,7 +443,7 @@ main {
   max-height: 0;
   font-size: 0.9rem;
   color: rgb(var(--grey));
-  text-decoration:line-through;
+  text-decoration: line-through;
 }
 
 #prevProduct,
@@ -459,8 +498,6 @@ main {
   cursor: pointer;
   background-color: rgb(var(--white));
 }
-
-
 
 .cardCategory a {
   color: rgb(var(--black));

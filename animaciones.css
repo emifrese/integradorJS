@@ -106,7 +106,13 @@
   color: rgb(var(--grey));
 }
 
-.amountContainer button:hover {
+.cartContainer button:hover {
   background-color: rgb(var(--fucsia));
   transition: all 0.3s ease;
+}
+
+.likeButton:hover {
+  transition: all 0.3s ease;
+  opacity: 1;
+  cursor: pointer
 }
