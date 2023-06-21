@@ -1,8 +1,19 @@
-const cardProduct = ({ id, title, thumbnail, price, original_price }) => {
+const cardProduct = (
+  { id, title, thumbnail, price, original_price },
+  location
+) => {
   //chequear si esta en favoritos
   const isLiked = appState.likes.some((itemLiked) => itemLiked === id);
-  console.log(isLiked);
-  return `<div class="cardProduct displayNone">
+
+  const wasBought = appState.itemsBought.some(
+    (itemBought) => itemBought.id === id
+  )
+    ? "bought"
+    : "";
+
+  const isFromSearch = location !== "index" ? "" : "displayNone";
+
+  return `<div class="cardProduct ${isFromSearch} ${wasBought}">
             <img src="./assets/images/like.svg" alt="like-button" class="likeButton" data-id=${id} ${
     isLiked && "style='opacity: 1'"
   } />
@@ -26,36 +37,49 @@ const cardProduct = ({ id, title, thumbnail, price, original_price }) => {
           </div>`;
 };
 
-const selectCarousel = (type) =>
-  type === "products"
-    ? [...productsContainer.children]
-    : [...categoriesContainer.children];
+const selectCarousel = (type) => {
+  switch (type) {
+    case "products":
+      return [...productsContainer.children];
+    case "categories":
+      return [...categoriesContainer.children];
+    default:
+      return [...resultsContainer.children];
+  }
+};
 
-const toRenderProducts = (products) => {
-  return products.map((product) => cardProduct(product)).join("");
+const toRenderProducts = (products, location) => {
+  return products.map((product) => cardProduct(product, location)).join("");
 };
 
 const renderProducts = (productsToRender, container) => {
   container.innerHTML = productsToRender;
 };
 
+const toRenderCategories = (categories) => {
+  return categories.map((category) => cardCategory(category)).join("");
+};
+
+const renderCategories = (categoriesToRender, container) => {
+  container.innerHTML = categoriesToRender;
+};
+
 const cardCategory = ({ id, name }) => {
   return `<div id=${id} class="cardCategory displayNone">
-                <a href="#">${name}</a>
+                <p>${name}</p>
           </div>`;
 };
 
 const initializeCarousel = (n, type) => {
   const carouselArray = selectCarousel(type);
   let itemsPerPage = carouselArray.length < n ? carouselArray.length : n;
-  console.log(itemsPerPage);
   for (let i = 0; i < itemsPerPage; i++) {
     carouselArray[i].classList.add("active");
   }
 };
 
 const nextCarousel = (n, type, nextButton, prevButton) => {
-  const carouselArray = selectCarousel(type)
+  const carouselArray = selectCarousel(type);
   const lastIndex = nextAvailable(type);
   console.log(carouselArray, lastIndex);
   if (lastIndex === carouselArray.length - 1) {
@@ -136,10 +160,14 @@ const loadUserInfo = (user, links) => {
 };
 
 const editCart = (addItem) => {
+  if (!appState.name) {
+    location.replace("/login.html");
+    return;
+  }
   if (!addItem.classList.contains("itemButton")) return;
   let newCart;
   let itemIndex = appState.shoppingCart.findIndex(
-    (item) => parseInt(item.id) === parseInt(addItem.dataset.id)
+    (item) => item.id === addItem.dataset.id
   );
   if (itemIndex !== -1) {
     newCart = [...appState.shoppingCart];
@@ -154,7 +182,7 @@ const editCart = (addItem) => {
       {
         title,
         price,
-        id: parseInt(id),
+        id,
         img,
         amount: 1,
       },
@@ -177,7 +205,7 @@ const editCart = (addItem) => {
   cartBubble.innerHTML = appState.shoppingCart.length;
 };
 
-const renderCartItems = () => {
+const renderCartItems = (total) => {
   const cartList = document.querySelector(".cartList");
   const cartContainer = document.querySelector(".cartContainer");
   cartBubble.innerHTML = appState.shoppingCart.length;
@@ -221,6 +249,14 @@ const renderCartItems = () => {
     cartContainer.innerHTML +=
       '<button type="submit" class="cartBuyButton">Comprar</button>';
   }
+  total.innerHTML += appState.shoppingCart.reduce((acc, current) => acc + (current.amount * parseFloat(current.price)), 0)
+};
+
+const totalToPay = () => {
+  return appState.shoppingCart.reduce(
+    (acc, current) => acc + (current.amount + parseFloat(current.price)),
+    0
+  );
 };
 
 const showCart = () => {
@@ -228,19 +264,19 @@ const showCart = () => {
   <form class="cartContainer">
   <h2>Tu carrito</h2>
   <ul class="cartList">
-  </ul>      
+  </ul>
+  <p class="totalToPay">Total: </p>      
   </form>
   `);
-  renderCartItems();
+  const totalPrice = document.querySelector(".totalToPay");
+  renderCartItems(totalPrice);
 };
 
 const modifyItems = (e) => {
   const { id, type } = e.target.dataset;
   if (!id) return;
   console.log("it passed");
-  const itemIndex = appState.shoppingCart.findIndex(
-    (item) => item.id === parseInt(id)
-  );
+  const itemIndex = appState.shoppingCart.findIndex((item) => item.id === id);
   let newCart = [...appState.shoppingCart];
   if (type === "positive") {
     newCart[itemIndex] = {
@@ -253,7 +289,7 @@ const modifyItems = (e) => {
       amount: newCart[itemIndex].amount - 1,
     };
   } else {
-    newCart = newCart.filter((item) => item.id !== parseInt(id));
+    newCart = newCart.filter((item) => item.id !== id);
   }
   // hacemos la copia con la modificacion del currentUser
   const newUserInfo = [{ ...currentUser[0], shoppingCart: newCart }];
@@ -312,23 +348,20 @@ const finishTransaction = (e) => {
   showModal("<p>Compra realizada</p>");
 };
 
-const addToFavorites = (e) => {
+const addToFavorites = async (e, type) => {
   const { id } = e.dataset;
 
   //chequeamos si esta en la lista de likes
   const itemIndex = appState.likes.findIndex(
-    (itemLikedId) => parseInt(itemLikedId) === parseInt(id)
+    (itemLikedId) => itemLikedId === id
   );
-  console.log(itemIndex);
   let newLikes;
   //removemos
   if (itemIndex !== -1) {
-    newLikes = appState.likes.filter(
-      (itemLikedId) => parseInt(itemLikedId) !== parseInt(id)
-    );
+    newLikes = appState.likes.filter((itemLikedId) => itemLikedId !== id);
   } else {
     //agregamos
-    appState.likes.push(parseInt(id));
+    appState.likes.push(id);
     newLikes = [...appState.likes];
   }
 
@@ -347,6 +380,35 @@ const addToFavorites = (e) => {
   // actualizamos appstate
   appState.likes = newLikes;
 
-  renderProducts(toRenderProducts(products), productsContainer);
-  initializeCarousel(4, "products");
+  const { pathname } = document.location;
+  console.log(pathname);
+  let products;
+  let container;
+  if (pathname === "/index.html") {
+    products = await getDeals();
+    container = productsContainer;
+  } else if (pathname === "/results.html") {
+    const search = document.location.search.substring(1);
+    products = await searchProducts(search);
+    container = resultsContainer;
+  } else {
+    const { results } = await getCategoriesProducts(type);
+    products = results;
+    container = categoriesProductsContainer;
+  }
+
+  console.log(products);
+
+  renderProducts(toRenderProducts(products, type), container);
+  pathname === "/index.html" && initializeCarousel(4, "products");
+};
+
+const searchHandler = (e, input) => {
+  e.preventDefault();
+  const { value } = input;
+  location.replace(`./results.html?${value}`);
+};
+
+const selectCategory = (category) => {
+  location.replace(`./categories.html?${category}`);
 };

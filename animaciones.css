@@ -85,13 +85,14 @@
 
 .cardProduct:hover {
   box-shadow: var(--card-shadow-hover);
+  max-height: 320px;
 }
 
 .productsButtons:hover {
   box-shadow: var(--card-shadow-hover);
 }
 
-.cardCategory:hover > a {
+.cardCategory:hover > p {
   color: rgb(var(--fucsia-darker));
   transition: all 0.3s ease;
 }

@@ -1,0 +1,12 @@
+.results {
+    display: flex;
+    justify-content: center;
+}
+.resultsContainer {
+    display: flex;
+    max-width: 1000px;
+    flex-wrap: wrap;
+    gap: 2rem 1rem;
+    margin: 1rem;
+    justify-content: space-evenly;
+}
