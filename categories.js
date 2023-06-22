@@ -1,10 +1,5 @@
 // Elements
 const categoriesContainer = document.querySelector(".categoriesContainer");
-const logoImg = document.querySelector(".logoImgContainer");
-const cartBubble = document.querySelector(".cartBubble");
-const userLinks = document.querySelector(".userLinks");
-const searchForm = document.querySelector(".searchBar");
-const searchInput = document.querySelector("#searchBarInput");
 const categoriesLink = document.querySelector("#categoriesLink");
 const nextCategories = document.querySelector("#nextCategories");
 const prevCategories = document.querySelector("#prevCategories");
@@ -13,21 +8,16 @@ const categoriesProductsContainer = document.querySelector(
 );
 const categoryTitle = document.querySelector("#categoryTitle");
 const categoriesTitle = document.querySelector("#categoriesTitle");
-const cartIcon = document.querySelector("#cartIcon");
 
+//init function
 const init = async () => {
-  if (currentUser.length > 0) {
-    loadUserInfo(currentUser, userLinks);
-    cartBubble.innerHTML = appState.shoppingCart.length;
-  }
+  isLogged(currentUser, loadUserInfo, userLinks, cartBubble, appState);
+  //fetch productos
   const categories = await getCategories();
   const category = document.location.search.substring(1);
   const { results, filters } = await getCategoriesProducts(category);
   categoryTitle.innerHTML = filters[0].values[0].name;
-  renderProducts(
-    toRenderProducts(results),
-    categoriesProductsContainer
-  );
+  renderProducts(toRenderProducts(results), categoriesProductsContainer);
   renderCategories(toRenderCategories(categories), categoriesContainer);
   initializeCarousel(16, "categories");
   prevAvailable("categories") && prevCategories.classList.add("active");
@@ -55,12 +45,13 @@ const init = async () => {
       }
       addToFavorites(e.target, category);
     }
-  })
+  });
   categoriesContainer.addEventListener("click", (e) => {
     if (e.target.parentElement.classList.contains("cardCategory")) {
       selectCategory(e.target.parentElement.id);
     }
   });
+
   logoImg.addEventListener("click", () => location.replace("./index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
   cartIcon.addEventListener("click", () => {

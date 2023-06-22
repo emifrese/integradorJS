@@ -1,3 +1,7 @@
+* {
+  border: 1px solid;
+}
+
 :root {
   --card-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 2px 0 rgba(0, 0, 0, 0.1);
   --card-shadow-hover: 0 7px 16px 0 rgba(0, 0, 0, 0.2),
@@ -81,6 +85,10 @@
 
 .cartContainer li:last-child {
   border: unset;
+}
+
+.totalP {
+  align-self: flex-end;
 }
 
 .cartItemContainer {
@@ -180,7 +188,6 @@ header {
 }
 
 .searchBarContainer {
-  width: 580px;
   position: relative;
   width: 580px;
   height: 100%;
@@ -303,6 +310,10 @@ header {
   text-align: center;
 }
 
+.menuButton {
+  display: none;
+}
+
 /* ----- MAIN ----- */
 
 main {
@@ -382,7 +393,7 @@ main {
 .cardProduct {
   width: 200px;
   min-height: 300px;
-  max-height: 310px;
+  max-height: 300px;
   padding: 1rem;
   border-radius: 0.1rem;
   box-shadow: var(--card-shadow);

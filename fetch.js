@@ -20,7 +20,6 @@ const searchProducts = async (search) => {
     `https://api.mercadolibre.com/sites/MLA/search?q=${search}&results=1`
   );
   const { results } = await response.json();
-  console.log(results);
   return results;
 };
 

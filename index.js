@@ -1,14 +1,3 @@
-// const testButton = document.querySelector("#infoMl");
-
-// const getInfo = async () => {
-//   const data = await fetch("https://api.mercadolibre.com/sites/MLA");
-
-//   const response = await data.json();
-//   console.log(response);
-// };
-
-// testButton.addEventListener("click", getInfo);
-
 // Elements
 const nextProduct = document.querySelector("#nextProduct");
 const prevProduct = document.querySelector("#prevProduct");
@@ -16,57 +5,83 @@ const productsContainer = document.querySelector(".productsContainer");
 const nextCategories = document.querySelector("#nextCategories");
 const prevCategories = document.querySelector("#prevCategories");
 const categoriesContainer = document.querySelector(".categoriesContainer");
-const logoImg = document.querySelector(".logoImgContainer");
-const userLinks = document.querySelector(".userLinks");
-const cartIcon = document.querySelector("#cartIcon");
-const cartBubble = document.querySelector(".cartBubble");
 const categoriesLink = document.querySelector("#categoriesLink");
 const productsLink = document.querySelector("#productsLink");
 const categoriesTitle = document.querySelector("#categoriesTitle");
 const productsTitle = document.querySelector("#productsTitle");
-const searchInput = document.querySelector("#searchBarInput");
-const searchForm = document.querySelector(".searchBar");
+const menuButton = document.querySelector("#burgerButton");
+const bottomHeader = document.querySelector(".bottomHeader");
 
 // init function
 const init = async () => {
-  if (currentUser.length > 0) {
-    loadUserInfo(currentUser, userLinks);
-    cartBubble.innerHTML = appState.shoppingCart.length;
-  }
+  isLogged(currentUser, loadUserInfo, userLinks, cartBubble, appState);
+  //fetch productos y categorias
   const dealProducts = await getDeals();
   renderProducts(toRenderProducts(dealProducts, "index"), productsContainer);
   const productsCarousel = [...productsContainer.children];
   const categories = await getCategories();
   renderCategories(toRenderCategories(categories), categoriesContainer);
-  initializeCarousel(4, "products");
-  initializeCarousel(16, "categories");
+  // inicializa los carruseles
+  adaptCarousel(
+    "products",
+    window.innerWidth,
+    carouselProducts,
+    initializeCarousel
+  );
+  adaptCarousel(
+    "categories",
+    window.innerWidth,
+    carouselCategories,
+    initializeCarousel
+  );
+  window.addEventListener("resize", (e) => {
+    const { innerWidth } = e.target;
+    initializeCarousel("reset", "products");
+    initializeCarousel("reset", "categories");
+    adaptCarousel("products", innerWidth, carouselProducts, initializeCarousel);
+    adaptCarousel(
+      "categories",
+      innerWidth,
+      carouselCategories,
+      initializeCarousel
+    );
+  });
   !prevAvailable("products") && prevProduct.classList.add("displayNone");
-  console.log(productsCarousel);
-  productsCarousel.length <= 4 && nextProduct.classList.add("displayNone");
+  productsCarousel.length <= carouselProducts(window.innerWidth) &&
+    nextProduct.classList.add("displayNone");
   nextProduct.addEventListener("click", () =>
-    nextCarousel(4, "products", nextProduct, prevProduct)
+    nextCarousel(
+      carouselProducts(window.innerWidth),
+      "products",
+      nextProduct,
+      prevProduct
+    )
   );
   prevProduct.addEventListener("click", () =>
-    prevCarousel(4, "products", nextProduct, prevProduct)
+    prevCarousel(
+      carouselProducts(window.innerWidth),
+      "products",
+      nextProduct,
+      prevProduct
+    )
   );
   prevAvailable("categories") && prevCategories.classList.add("active");
   nextCategories.addEventListener("click", () =>
-    nextCarousel(16, "categories", nextCategories, prevCategories)
+    nextCarousel(
+      carouselCategories(window.innerWidth),
+      "categories",
+      nextCategories,
+      prevCategories
+    )
   );
   prevCategories.addEventListener("click", () =>
-    prevCarousel(16, "categories", nextCategories, prevCategories)
+    prevCarousel(
+      carouselCategories(window.innerWidth),
+      "categories",
+      nextCategories,
+      prevCategories
+    )
   );
-  logoImg.addEventListener("click", () => location.replace("./index.html"));
-  cartIcon.addEventListener("click", () => {
-    if (!appState.name) {
-      location.replace("/login.html");
-      return;
-    }
-    showCart();
-    const cartContainer = document.querySelector(".cartContainer");
-    cartContainer.addEventListener("click", (e) => modifyItems(e));
-    cartContainer.addEventListener("submit", (e) => finishTransaction(e));
-  });
   productsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("itemButton")) {
       if (!appState.name) {
@@ -94,7 +109,22 @@ const init = async () => {
   productsLink.addEventListener("click", () => {
     productsTitle.scrollIntoView({ behavior: "smooth" });
   });
+
+  logoImg.addEventListener("click", () => location.replace("./index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
+  cartIcon.addEventListener("click", () => {
+    if (!appState.name) {
+      location.replace("/login.html");
+      return;
+    }
+    showCart();
+    const cartContainer = document.querySelector(".cartContainer");
+    cartContainer.addEventListener("click", (e) => modifyItems(e));
+    cartContainer.addEventListener("submit", (e) => finishTransaction(e));
+  });
+  menuButton.addEventListener("click", () => {
+    bottomHeader.classList.toggle("burgerMenu");
+  });
 };
 
 init();

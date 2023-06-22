@@ -1,0 +1,238 @@
+@media (max-width: 1023px) and (min-width: 427px) {
+  /* ----- HEADER ----- */
+
+  header {
+    padding: 0;
+  }
+
+  .topHeader {
+    justify-content: space-evenly;
+  }
+
+  .searchBarContainer {
+    width: 400px;
+  }
+
+  .dealsButtonContainer {
+    min-width: 20%;
+  }
+
+  .dealsButtonContainer span {
+    display: none;
+  }
+
+  /* ----- MAIN ----- */
+
+  main {
+    row-gap: 3rem;
+  }
+
+  /* HERO */
+  .hero {
+    height: 300px;
+  }
+
+  .heroText {
+    display: none;
+  }
+
+  .hero img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* PRODUCTS & CATEGORIES */
+
+  .products,
+  .categories {
+    padding: 0 3rem;
+  }
+
+  #nextProduct,
+  #nextCategories {
+    right: 0;
+  }
+
+  #prevProduct,
+  #prevCategories {
+    left: 0;
+  }
+
+  .categoriesContainer {
+    grid-template-columns: repeat(4, 120px);
+  }
+
+  /* ----- FOOTER ----- */
+
+  footer {
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 426px) {
+  /* ----- HEADER ----- */
+
+  header {
+    padding: 0;
+  }
+
+  .bottomHeader {
+    display: none;
+  }
+
+  @keyframes fadingMenu {
+    from {
+      opacity: 0%;
+    }
+  
+    to {
+      transform: translateX(0);
+      opacity: 100%;
+    }
+  }
+
+  .burgerMenu {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 100px;
+    /* cambiar */
+    background-color: black;
+    z-index: 3;
+    height: 300px;
+    flex-direction: column-reverse;
+    align-items: center;
+    animation: fadingMenu 0.3s ease;
+  }
+
+  .headerButtons,
+  .userContainer {
+    height: 100%;
+  }
+
+  .headerButtons ul,
+  .userContainer ul {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .searchBarContainer {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .searchBarContainer input::placeholder {
+    opacity: 0;
+  }
+
+  .dealsButtonContainer {
+    display: none;
+  }
+
+  .menuButton {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menuButton button {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+  }
+
+  /* ----- MAIN ----- */
+
+  main {
+    row-gap: 3rem;
+  }
+
+  /* HERO */
+  .hero {
+    height: 200px;
+  }
+
+  .heroText {
+    display: none;
+  }
+
+  .hero img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* PRODUCTS & CATEGORIES */
+
+  .products,
+  .categories {
+    padding: 0 3rem;
+  }
+
+  #nextProduct,
+  #nextCategories {
+    right: 0;
+  }
+
+  #prevProduct,
+  #prevCategories {
+    left: 0;
+  }
+
+  .productsContainer {
+    margin: 1rem 0;
+    column-gap: 0.5rem;
+  }
+
+  .categoriesContainer {
+    grid-template-columns: repeat(2, 120px);
+  }
+
+  .cardProduct {
+    min-height: 280px;
+    max-height: 280px;
+  }
+
+  .cardProduct:hover {
+    max-height: 300px;
+  }
+
+  .productImg {
+    max-height: 90px;
+  }
+
+  .productDescription strong {
+    font-size: 1rem;
+  }
+
+  .productDescription p {
+    font-size: 0.8rem;
+  }
+
+  .itemButton {
+    padding: 0.5rem;
+    margin: unset;
+    margin-top: 0.5rem;
+  }
+
+  .productsButtons {
+    width: 40px;
+    height: 40px;
+  }
+
+  .productsButtons img {
+    width: 75%;
+  }
+  /* ----- FOOTER ----- */
+
+  footer {
+    padding: 1rem 0.5rem;
+  }
+
+  .footerNavBar li {
+    font-size: 0.8rem;
+    width: 20%;
+    text-align: center;
+  }
+}

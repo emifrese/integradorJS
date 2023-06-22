@@ -26,6 +26,7 @@ const cardProduct = (
             }
                 <strong>$${price}</strong>
                 <p class="productTitle">${title}</p>
+                </div>
                 <button 
                 class="itemButton" 
                 data-id=${id} 
@@ -33,7 +34,6 @@ const cardProduct = (
                 data-price=${price}
                 data-img=${thumbnail}
                 >Agregar al carrito</button>
-            </div>
           </div>`;
 };
 
@@ -72,9 +72,16 @@ const cardCategory = ({ id, name }) => {
 
 const initializeCarousel = (n, type) => {
   const carouselArray = selectCarousel(type);
-  let itemsPerPage = carouselArray.length < n ? carouselArray.length : n;
-  for (let i = 0; i < itemsPerPage; i++) {
-    carouselArray[i].classList.add("active");
+  console.log(n, typeof n);
+  if (typeof n === "number") {
+    let itemsPerPage = carouselArray.length < n ? carouselArray.length : n;
+    for (let i = 0; i < itemsPerPage; i++) {
+      carouselArray[i].classList.add("active");
+    }
+  } else {
+    for (let item of carouselArray) {
+      item.classList.remove("active");
+    }
   }
 };
 
@@ -249,12 +256,12 @@ const renderCartItems = (total) => {
     cartContainer.innerHTML +=
       '<button type="submit" class="cartBuyButton">Comprar</button>';
   }
-  total.innerHTML += appState.shoppingCart.reduce((acc, current) => acc + (current.amount * parseFloat(current.price)), 0)
+  total.innerHTML = totalToPay();
 };
 
 const totalToPay = () => {
   return appState.shoppingCart.reduce(
-    (acc, current) => acc + (current.amount + parseFloat(current.price)),
+    (acc, current) => acc + current.amount * parseFloat(current.price),
     0
   );
 };
@@ -265,7 +272,7 @@ const showCart = () => {
   <h2>Tu carrito</h2>
   <ul class="cartList">
   </ul>
-  <p class="totalToPay">Total: </p>      
+  <p class="totalP">Total: <span  class="totalToPay"></span></p>      
   </form>
   `);
   const totalPrice = document.querySelector(".totalToPay");
@@ -275,7 +282,6 @@ const showCart = () => {
 const modifyItems = (e) => {
   const { id, type } = e.target.dataset;
   if (!id) return;
-  console.log("it passed");
   const itemIndex = appState.shoppingCart.findIndex((item) => item.id === id);
   let newCart = [...appState.shoppingCart];
   if (type === "positive") {
@@ -305,7 +311,8 @@ const modifyItems = (e) => {
   // actualizamos el appState
   appState.shoppingCart = newCart;
   // renderizamos el cambio
-  renderCartItems();
+  const totalPrice = document.querySelector(".totalToPay");
+  renderCartItems(totalPrice);
 };
 
 const finishTransaction = (e) => {
@@ -411,4 +418,35 @@ const searchHandler = (e, input) => {
 
 const selectCategory = (category) => {
   location.replace(`./categories.html?${category}`);
+};
+
+const isLogged = (user, loadUser, links, cart, state) => {
+  if (user.length > 0) {
+    loadUser(currentUser, links);
+    cart.innerHTML = state.shoppingCart.length;
+  }
+};
+
+const carouselProducts = (width) => {
+  if (width >= 1024) {
+    return 4;
+  } else if (width < 1024 && width > 426) {
+    return 3;
+  } else {
+    return 2;
+  }
+};
+
+const carouselCategories = (width) => {
+  if (width >= 1024) {
+    return 16;
+  } else if (width < 1024 && width > 426) {
+    return 8;
+  } else {
+    return 4;
+  }
+};
+
+const adaptCarousel = (type, width, nFc, carouselFc) => {
+  carouselFc(nFc(width), type);
 };

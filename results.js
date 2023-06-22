@@ -1,17 +1,10 @@
 // Elements
 const resultsContainer = document.querySelector(".resultsContainer");
-const searchInput = document.querySelector("#searchBarInput");
-const searchForm = document.querySelector(".searchBar");
-const logoImg = document.querySelector(".logoImgContainer");
-const cartBubble = document.querySelector(".cartBubble");
-const userLinks = document.querySelector(".userLinks");
 
 //init function
 const init = async () => {
-  if (currentUser.length > 0) {
-    loadUserInfo(currentUser, userLinks);
-    cartBubble.innerHTML = appState.shoppingCart.length;
-  }
+  isLogged(currentUser, loadUserInfo, userLinks, cartBubble, appState)
+  //fetch productos
   const search = document.location.search.substring(1);
   const products = await searchProducts(search);
   renderProducts(toRenderProducts(products), resultsContainer);
@@ -35,6 +28,16 @@ const init = async () => {
   
   logoImg.addEventListener("click", () => location.replace("./index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
+  cartIcon.addEventListener("click", () => {
+    if (!appState.name) {
+      location.replace("/login.html");
+      return;
+    }
+    showCart();
+    const cartContainer = document.querySelector(".cartContainer");
+    cartContainer.addEventListener("click", (e) => modifyItems(e));
+    cartContainer.addEventListener("submit", (e) => finishTransaction(e));
+  });
 };
 
 init();
