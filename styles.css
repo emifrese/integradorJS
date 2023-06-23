@@ -262,6 +262,7 @@ header {
 .userContainer li {
   position: relative;
   cursor: pointer;
+  color: rgb(var(--white));
 }
 
 .headerButtons li::after,
