@@ -97,7 +97,7 @@
     left: 0;
     top: 100px;
     /* cambiar */
-    background-color: black;
+    background-color: rgb(var(--orange));
     z-index: 3;
     height: 300px;
     flex-direction: column-reverse;
@@ -167,7 +167,7 @@
 
   .products,
   .categories {
-    padding: 0 3rem;
+    padding: 0 2rem;
   }
 
   #nextProduct,
@@ -187,6 +187,7 @@
 
   .categoriesContainer {
     grid-template-columns: repeat(2, 120px);
+    margin: 0;
   }
 
   .cardProduct {
@@ -207,12 +208,12 @@
   }
 
   .productDescription p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .itemButton {
-    padding: 0.5rem;
-    margin: unset;
+    font-size: 0.8rem;
+    padding: 0.3rem;
     margin-top: 0.5rem;
   }
 
@@ -234,5 +235,50 @@
     font-size: 0.8rem;
     width: 20%;
     text-align: center;
+  }
+
+  /* ----- MODAL ----- */
+  .modal {
+    max-width: 85%;
+  }
+
+  /* CART */
+
+  .cartContainer {
+    min-width: unset;
+    max-width: 100%;
+    row-gap: 1rem;
+  }
+
+  .cartContainer li {
+    align-items: center;
+  }
+
+  .cartList {
+    max-height: 350px;
+  }
+
+  .itemTotalPrice {
+    font-size: 0.8rem;
+  }
+
+  .cartItemImg {
+    width: 40%;
+  }
+
+  .cartItemInfo p {
+    font-size: 0.8rem;
+  }
+
+  .amountContainer button {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  /* ----- RESULTS ----- */
+
+  .resultsContainer {
+    column-gap: 0.5rem;
+    margin: 1rem 0;
   }
 }

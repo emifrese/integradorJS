@@ -9,8 +9,7 @@ const categoriesLink = document.querySelector("#categoriesLink");
 const productsLink = document.querySelector("#productsLink");
 const categoriesTitle = document.querySelector("#categoriesTitle");
 const productsTitle = document.querySelector("#productsTitle");
-const menuButton = document.querySelector("#burgerButton");
-const bottomHeader = document.querySelector(".bottomHeader");
+
 
 // init function
 const init = async () => {
@@ -125,6 +124,11 @@ const init = async () => {
   menuButton.addEventListener("click", () => {
     bottomHeader.classList.toggle("burgerMenu");
   });
+  bottomHeader.addEventListener("click", (e) => {
+    if(e.target.tagName === "A" || e.target.tagName === "LI" || e.target.tagName === "IMG"){
+      bottomHeader.classList.toggle("burgerMenu")
+    }
+  })
 };
 
 init();

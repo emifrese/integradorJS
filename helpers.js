@@ -248,22 +248,24 @@ const renderCartItems = (total) => {
           class="cartItemImg"
         />
       </div>
-      <p>$${amount * price}</p>
+      <p class="itemTotalPrice">$${amount * price}</p>
     </li>`;
     })
     .join("");
-  if (cartContainer.children.length < 3) {
+  total.innerHTML = totalToPay();
+  if (appState.shoppingCart.length > 0) {
     cartContainer.innerHTML +=
       '<button type="submit" class="cartBuyButton">Comprar</button>';
   }
-  total.innerHTML = totalToPay();
 };
 
 const totalToPay = () => {
-  return appState.shoppingCart.reduce(
-    (acc, current) => acc + current.amount * parseFloat(current.price),
-    0
-  );
+  return appState.shoppingCart
+    .reduce(
+      (acc, current) => acc + current.amount * parseFloat(current.price),
+      0
+    )
+    .toFixed(2);
 };
 
 const showCart = () => {
@@ -395,6 +397,7 @@ const addToFavorites = async (e, type) => {
     products = await getDeals();
     container = productsContainer;
   } else if (pathname === "/results.html") {
+    console.log('here')
     const search = document.location.search.substring(1);
     products = await searchProducts(search);
     container = resultsContainer;
@@ -407,7 +410,8 @@ const addToFavorites = async (e, type) => {
   console.log(products);
 
   renderProducts(toRenderProducts(products, type), container);
-  pathname === "/index.html" && initializeCarousel(4, "products");
+  pathname === "/index.html" && adaptCarousel("products", window.innerWidth, carouselProducts, initializeCarousel);
+  pathname === "/index.html" && prevProduct.classList.add("displayNone")
 };
 
 const searchHandler = (e, input) => {

@@ -6,10 +6,10 @@ const modalCard = (content) => {
     <div class="modalContainer">
     <div class="modal">${content}</div>
     </div>`;
-  };
-  
-  const showModal = (modalContent) => {
-    overlay.innerHTML = modalCard(modalContent);
-    const backdrop = document.querySelector(".backdrop");
-    backdrop.addEventListener("click", () => (overlay.innerHTML = ""));
+};
+
+const showModal = (modalContent) => {
+  overlay.innerHTML = modalCard(modalContent);
+  const backdrop = document.querySelector(".backdrop");
+  backdrop.addEventListener("click", () => (overlay.innerHTML = ""));
 };

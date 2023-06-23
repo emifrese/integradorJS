@@ -19,13 +19,28 @@ const init = async () => {
   categoryTitle.innerHTML = filters[0].values[0].name;
   renderProducts(toRenderProducts(results), categoriesProductsContainer);
   renderCategories(toRenderCategories(categories), categoriesContainer);
-  initializeCarousel(16, "categories");
+  adaptCarousel(
+    "categories",
+    window.innerWidth,
+    carouselCategories,
+    initializeCarousel
+  );
   prevAvailable("categories") && prevCategories.classList.add("active");
   nextCategories.addEventListener("click", () =>
-    nextCarousel(16, "categories", nextCategories, prevCategories)
+    nextCarousel(
+      carouselCategories(window.innerWidth),
+      "categories",
+      nextCategories,
+      prevCategories
+    )
   );
   prevCategories.addEventListener("click", () =>
-    prevCarousel(16, "categories", nextCategories, prevCategories)
+    prevCarousel(
+      carouselCategories(window.innerWidth),
+      "categories",
+      nextCategories,
+      prevCategories
+    )
   );
   categoriesLink.addEventListener("click", () =>
     categoriesTitle.scrollIntoView({ behavior: "smooth" })
@@ -64,6 +79,14 @@ const init = async () => {
     cartContainer.addEventListener("click", (e) => modifyItems(e));
     cartContainer.addEventListener("submit", (e) => finishTransaction(e));
   });
+  menuButton.addEventListener("click", () => {
+    bottomHeader.classList.toggle("burgerMenu");
+  });
+  bottomHeader.addEventListener("click", (e) => {
+    if(e.target.tagName === "A" || e.target.tagName === "LI" || e.target.tagName === "IMG"){
+      bottomHeader.classList.toggle("burgerMenu")
+    }
+  })
 };
 
 init();

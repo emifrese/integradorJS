@@ -26,9 +26,6 @@ main {
   color: rgb(var(--orange));
 }
 
-.loginSection {
-}
-
 .loginForm {
   display: flex;
   flex-direction: column;
@@ -107,5 +104,27 @@ main {
   100% {
     width: 100%;
     opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  header {
+    padding: 0;
+  }
+  main {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0;
+  }
+
+  .loginInstructions, .loginSection {
+    margin: 0;
+    width: 100%;
+    padding: 1rem
+  }
+
+  .loginSection {
+    display: flex;
+    justify-content: center;
   }
 }

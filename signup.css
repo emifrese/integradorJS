@@ -72,3 +72,21 @@ label:has(#terms) {
     transition: all 0.3s ease;
     background-color: rgb(var(--fucsia));
 }
+
+@media (max-width: 426px) {
+    .registerForm {
+        width: 400px;
+    }
+
+    .registerForm h1 {
+        font-size: 1.2rem;
+    }
+
+    .registerForm label {
+        font-size: 0.8rem;
+    }
+
+    .registerForm input {
+        padding: 0.3rem
+    }
+}
