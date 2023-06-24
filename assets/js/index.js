@@ -1,29 +1,68 @@
 // Elements
-const categoriesContainer = document.querySelector(".categoriesContainer");
-const categoriesLink = document.querySelector("#categoriesLink");
+const nextProduct = document.querySelector("#nextProduct");
+const prevProduct = document.querySelector("#prevProduct");
+const productsContainer = document.querySelector(".productsContainer");
 const nextCategories = document.querySelector("#nextCategories");
 const prevCategories = document.querySelector("#prevCategories");
-const categoriesProductsContainer = document.querySelector(
-  ".categoriesProductsContainer"
-);
-const categoryTitle = document.querySelector("#categoryTitle");
+const categoriesContainer = document.querySelector(".categoriesContainer");
+const categoriesLink = document.querySelector("#categoriesLink");
+const productsLink = document.querySelector("#productsLink");
 const categoriesTitle = document.querySelector("#categoriesTitle");
+const productsTitle = document.querySelector("#productsTitle");
 
-//init function
+
+// init function
 const init = async () => {
   isLogged(currentUser, loadUserInfo, userLinks, cartBubble, appState);
-  //fetch productos
+  //fetch productos y categorias
+  const dealProducts = await getDeals();
+  renderProducts(toRenderProducts(dealProducts, "index"), productsContainer);
+  const productsCarousel = [...productsContainer.children];
   const categories = await getCategories();
-  const category = document.location.search.substring(1);
-  const { results, filters } = await getCategoriesProducts(category);
-  categoryTitle.innerHTML = filters[0].values[0].name;
-  renderProducts(toRenderProducts(results), categoriesProductsContainer);
   renderCategories(toRenderCategories(categories), categoriesContainer);
+  // inicializa los carruseles
+  adaptCarousel(
+    "products",
+    window.innerWidth,
+    carouselProducts,
+    initializeCarousel
+  );
   adaptCarousel(
     "categories",
     window.innerWidth,
     carouselCategories,
     initializeCarousel
+  );
+  window.addEventListener("resize", (e) => {
+    const { innerWidth } = e.target;
+    initializeCarousel("reset", "products");
+    initializeCarousel("reset", "categories");
+    adaptCarousel("products", innerWidth, carouselProducts, initializeCarousel);
+    adaptCarousel(
+      "categories",
+      innerWidth,
+      carouselCategories,
+      initializeCarousel
+    );
+  });
+  !prevAvailable("products") && prevProduct.classList.add("displayNone");
+  productsCarousel.length <= carouselProducts(window.innerWidth) &&
+    nextProduct.classList.add("displayNone");
+  nextProduct.addEventListener("click", () =>
+    nextCarousel(
+      carouselProducts(window.innerWidth),
+      "products",
+      nextProduct,
+      prevProduct
+    )
+  );
+  prevProduct.addEventListener("click", () =>
+    prevCarousel(
+      carouselProducts(window.innerWidth),
+      "products",
+      nextProduct,
+      prevProduct
+    )
   );
   prevAvailable("categories") && prevCategories.classList.add("active");
   nextCategories.addEventListener("click", () =>
@@ -42,10 +81,7 @@ const init = async () => {
       prevCategories
     )
   );
-  categoriesLink.addEventListener("click", () =>
-    categoriesTitle.scrollIntoView({ behavior: "smooth" })
-  );
-  categoriesProductsContainer.addEventListener("click", (e) => {
+  productsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("itemButton")) {
       if (!appState.name) {
         location.replace("/login.html");
@@ -58,13 +94,19 @@ const init = async () => {
         location.replace("/login.html");
         return;
       }
-      addToFavorites(e.target, category);
+      addToFavorites(e.target, "index");
     }
   });
   categoriesContainer.addEventListener("click", (e) => {
     if (e.target.parentElement.classList.contains("cardCategory")) {
       selectCategory(e.target.parentElement.id);
     }
+  });
+  categoriesLink.addEventListener("click", () =>
+    categoriesTitle.scrollIntoView({ behavior: "smooth" })
+  );
+  productsLink.addEventListener("click", () => {
+    productsTitle.scrollIntoView({ behavior: "smooth" });
   });
 
   logoImg.addEventListener("click", () => location.replace("./index.html"));
@@ -86,6 +128,9 @@ const init = async () => {
     if(e.target.tagName === "A" || e.target.tagName === "LI" || e.target.tagName === "IMG"){
       bottomHeader.classList.toggle("burgerMenu")
     }
+  })
+  toTheTop.addEventListener("click", () => {
+    header.scrollIntoView({behavior: "smooth"})
   })
 };
 

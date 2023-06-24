@@ -10,13 +10,14 @@
       href="./assets/images/logofavicon.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./animaciones.css" />
-    <link rel="stylesheet" href="./mediaqueries.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./assets/css/animaciones.css" />
+    <link rel="stylesheet" href="./assets/css/mediaqueries.css" />
+    <link rel="stylesheet" href="./assets/css/spinner.css">
   </head>
   <body>
     <div class="overlay"></div>
-    <header>
+    <header class="header">
       <figure class="logoImgContainer">
         <img src="./assets/images/logo400-removebg-preview.png" alt="" />
       </figure>
@@ -45,13 +46,12 @@
               <!-- <li><a id="categoriesLink">Categorías</a></li> -->
               <li id="categoriesLink">Categorías</li>
               <li id="productsLink">Ofertas</li>
-              <li>Historial</li>
             </ul>
           </div>
           <div class="userContainer">
             <ul class="userLinks">
-              <li><a href="./signup.html">Crea tu cuenta</a></li>
-              <li><a href="./login.html">Ingresa</a></li>
+              <li><a href="./pages/signup.html">Crea tu cuenta</a></li>
+              <li><a href="./pages/login.html">Ingresa</a></li>
               <li>
                 <figure>
                   <img
@@ -96,13 +96,14 @@
           <img src="./assets/images/next.svg" alt="" />
         </button>
       </section>
+      <div class="toTheTop"><img src="./assets/images/arrowUp.svg" alt=""></div>
     </main>
     <footer>
       <nav class="footerNavBar">
         <ul>
-          <li>Trabaja con nosotros</li>
+          <li><a href="./pages/workWithUs.html">Trabaja con nosotros</a></li>
           <li>Terminos y condiciones</li>
-          <li>Acerca de nosotros</li>
+          <li><a href="./pages/aboutUs.html">Acerca de nosotros</a></li>
           <li>Ayuda</li>
         </ul>
       </nav>
@@ -112,11 +113,11 @@
         <a href="#"><img src="./assets/images/facebook.svg" alt="" /></a>
       </div>
     </footer>
-    <script src="./appState.js"></script>
-    <script src="./fetch.js"></script>
-    <script src="./modal.js"></script>
-    <script src="./helpers.js"></script>
-    <script src="./elements.js"></script>
-    <script src="./index.js"></script>
+    <script src="./assets/js/appState.js"></script>
+    <script src="./assets/js/fetch.js"></script>
+    <script src="./assets/js/modal.js"></script>
+    <script src="./assets/js/helpers.js"></script>
+    <script src="./assets/js/elements.js"></script>
+    <script src="./assets/js/index.js"></script>
   </body>
 </html>

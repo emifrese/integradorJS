@@ -117,3 +117,7 @@
   opacity: 1;
   cursor: pointer
 }
+
+.toTheTop:hover {
+  box-shadow: var(--card-shadow-hover);
+}

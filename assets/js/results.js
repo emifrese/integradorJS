@@ -27,7 +27,7 @@ const init = async () => {
     }
   });
 
-  logoImg.addEventListener("click", () => location.replace("./index.html"));
+  logoImg.addEventListener("click", () => location.replace("../index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
   cartIcon.addEventListener("click", () => {
     if (!appState.name) {
@@ -52,6 +52,9 @@ const init = async () => {
       bottomHeader.classList.toggle("burgerMenu");
     }
   });
+  toTheTop.addEventListener("click", () => {
+    header.scrollIntoView({behavior: "smooth"})
+  })
 };
 
 init();

@@ -6,19 +6,19 @@
     <title>Open Market</title>
     <link
       rel="shortcut icon"
-      href="./assets/images/logofavicon.png"
+      href="../assets/images/logofavicon.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="./categories.css">
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./animaciones.css" />
-    <link rel="stylesheet" href="./mediaqueries.css" />
+    <link rel="stylesheet" href="../assets/css/categories.css">
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/animaciones.css" />
+    <link rel="stylesheet" href="../assets/css/mediaqueries.css" />
 </head>
 <body>
     <div class="overlay"></div>
-    <header>
+    <header class="header">
       <figure class="logoImgContainer">
-        <img src="./assets/images/logo400-removebg-preview.png" alt="" />
+        <img src="../assets/images/logo400-removebg-preview.png" alt="" />
       </figure>
       <div class="headerContainer">
         <div class="topHeader">
@@ -30,7 +30,7 @@
                 id="searchBarInput"
               />
               <button type="submit">
-                <img src="./assets/images/searchIcon.svg" alt="" />
+                <img src="../assets/images/searchIcon.svg" alt="" />
               </button>
             </form>
           </div>
@@ -53,7 +53,7 @@
                 <figure>
                   <img
                     id="cartIcon"
-                    src="./assets/images/shoppingCart.svg"
+                    src="../assets/images/shoppingCart.svg"
                     alt=""
                   />
                   <div class="cartBubble">0</div>
@@ -73,33 +73,35 @@
           <h2 id="categoriesTitle">Categorías</h2>
           <div class="categoriesContainer"></div>
           <button class="productsButtons displayNone" id="prevCategories">
-            <img src="./assets/images/prev.svg" alt="" />
+            <img src="../assets/images/prev.svg" alt="" />
           </button>
           <button class="productsButtons" id="nextCategories">
-            <img src="./assets/images/next.svg" alt="" />
+            <img src="../assets/images/next.svg" alt="" />
           </button>
         </section>
+        <div class="toTheTop"><img src="../assets/images/arrowUp.svg" alt=""></div>
+
       </main>
       <footer>
         <nav class="footerNavBar">
           <ul>
-            <li>Trabaja con nosotros</li>
+            <li><a href="./workWithUs.html">Trabaja con nosotros</a></li>
             <li>Terminos y condiciones</li>
-            <li>Acerca de nosotros</li>
+            <li><a href="./aboutUs.html">Acerca de nosotros</a></li>
             <li>Ayuda</li>
           </ul>
         </nav>
         <div class="socialMedia">
-          <a href="#"><img src="./assets/images/twitter.svg" alt="" /></a>
-          <a href="#"><img src="./assets/images/instagram.svg" alt="" /> </a>
-          <a href="#"><img src="./assets/images/facebook.svg" alt="" /></a>
+          <a href="#"><img src="../assets/images/twitter.svg" alt="" /></a>
+          <a href="#"><img src="../assets/images/instagram.svg" alt="" /> </a>
+          <a href="#"><img src="../assets/images/facebook.svg" alt="" /></a>
         </div>
       </footer>
-      <script src="./appState.js"></script>
-      <script src="/modal.js"></script>
-      <script src="./fetch.js"></script>
-      <script src="./helpers.js"></script>
-      <script src="./elements.js"></script>
-      <script src="./categories.js"></script>
+      <script src="../assets/js/appState.js"></script>
+      <script src="../assets/js/modal.js"></script>
+      <script src="../assets/js/fetch.js"></script>
+      <script src="../assets/js/helpers.js"></script>
+      <script src="../assets/js/elements.js"></script>
+      <script src="../assets/js/categories.js"></script>
 </body>
 </html>

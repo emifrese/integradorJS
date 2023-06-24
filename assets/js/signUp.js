@@ -118,6 +118,6 @@ const submitRegisterHandler = (e) => {
 };
 
 (() => {
-  logoImg.addEventListener("click", () => location.replace("./index.html"));
+  logoImg.addEventListener("click", () => location.replace("../index.html"));
   registerForm.addEventListener("submit", submitRegisterHandler);
 })();

@@ -73,15 +73,15 @@ const loginFormHandler = (e) => {
     "currentUser",
     JSON.stringify([existingUsers[loginUserIndex]])
   );
-  location.replace("./index.html");
+  location.replace("../index.html");
 };
 
 (() => {
   document.addEventListener(
     "DOMContentLoaded",
-    () => currentUser.length > 0 && location.replace("./index.html")
+    () => currentUser.length > 0 && location.replace("../index.html")
   );
-  logoImg.addEventListener("click", () => location.replace("./index.html"));
+  logoImg.addEventListener("click", () => location.replace("../index.html"));
   // continueButton.addEventListener("click", () => existingUser(emailInput));
   loginForm.addEventListener("submit", loginFormHandler);
 })();

@@ -14,7 +14,7 @@ const cardProduct = (
   const isFromSearch = location !== "index" ? "" : "displayNone";
 
   return `<div class="cardProduct ${isFromSearch} ${wasBought}">
-            <img src="./assets/images/like.svg" alt="like-button" class="likeButton" data-id=${id} ${
+            <img src="../assets/images/like.svg" alt="like-button" class="likeButton" data-id=${id} ${
     isLiked && "style='opacity: 1'"
   } />
             <img src=${thumbnail} alt="product" class="productImg">
@@ -72,7 +72,6 @@ const cardCategory = ({ id, name }) => {
 
 const initializeCarousel = (n, type) => {
   const carouselArray = selectCarousel(type);
-  console.log(n, typeof n);
   if (typeof n === "number") {
     let itemsPerPage = carouselArray.length < n ? carouselArray.length : n;
     for (let i = 0; i < itemsPerPage; i++) {
@@ -236,7 +235,7 @@ const renderCartItems = (total) => {
             ${
               amount > 1
                 ? `<button class="button-quantity" data-type="negative" data-id=${id} type="button">-</button>`
-                : `<button class="button-quantity" type="button"><img src="./assets/images/trash.svg" class="deleteItem" data-type="delete" data-id=${id} /></button>`
+                : `<button class="button-quantity" type="button"><img src="../assets/images/trash.svg" class="deleteItem" data-type="delete" data-id=${id} /></button>`
             }
             <p class="itemAmount">x${amount}</p>
             <button class="button-quantity" data-type="positive" data-id=${id} type="button">+</button>
@@ -321,7 +320,7 @@ const finishTransaction = (e) => {
   e.preventDefault();
   console.log("finish transaction");
 
-  // historial comprados
+  // historial comprados pendiente
   // sino existe agregar
   appState.shoppingCart.forEach((item) => {
     if (
@@ -417,11 +416,11 @@ const addToFavorites = async (e, type) => {
 const searchHandler = (e, input) => {
   e.preventDefault();
   const { value } = input;
-  location.replace(`./results.html?${value}`);
+  location.replace(`../../pages/results.html?${value}`);
 };
 
 const selectCategory = (category) => {
-  location.replace(`./categories.html?${category}`);
+  location.replace(`../../pages/categories.html?${category}`);
 };
 
 const isLogged = (user, loadUser, links, cart, state) => {

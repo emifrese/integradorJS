@@ -1,0 +1,23 @@
+main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.aboutUs {
+    width: 60%;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow-hover);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.aboutUs img {
+    width: 300px
+}
