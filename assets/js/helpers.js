@@ -167,7 +167,7 @@ const loadUserInfo = (user, links) => {
 
 const editCart = (addItem) => {
   if (!appState.name) {
-    location.replace("/login.html");
+    location.replace("../../pages/login.html");
     return;
   }
   if (!addItem.classList.contains("itemButton")) return;
