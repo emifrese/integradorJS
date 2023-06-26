@@ -67,30 +67,27 @@ label:has(#terms) {
   padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .registerButton {
   color: rgb(var(--white));
-  border: 1px solid rgb(var(--fucsia));
-  background-color: rgb(var(--fucsia-darker));
+  border: 1px solid rgb(var(--fucsia-darker));
+  background-color: rgb(var(--fucsia));
 }
 
 .loginButton {
   margin-top: 0.5rem;
-  color: rgb(var(--fucsia));
-  border: 1px solid rgb(var(--fucsia-darker));
   background-color: rgb(var(--white));
+  color: rgb(var(--fucsia-darker));
 }
 
 .registerButton:hover {
-  transition: all 0.3s ease;
-  background-color: rgb(var(--fucsia));
+  background-color: rgb(var(--fucsia-darker));
 }
 
 .loginButton:hover {
-    transition: all 0.3s ease;
-    color: rgb(var(--white));
-    background-color: rgb(var(--fucsia))
+    color: rgb(var(--fucsia));
 }
 
 @media (max-width: 640px) {
