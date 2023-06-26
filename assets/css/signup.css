@@ -77,6 +77,7 @@ label:has(#terms) {
 }
 
 .loginButton {
+  border: none;
   margin-top: 0.5rem;
   background-color: rgb(var(--white));
   color: rgb(var(--fucsia-darker));
