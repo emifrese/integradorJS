@@ -22,7 +22,6 @@ let timesPassed = 0;
 
 const loginFormHandler = (e) => {
   e.preventDefault();
-  console.log(timesPassed)
   if (timesPassed < 1) {
     const emailValue = emailInput.value;
 

@@ -8,8 +8,6 @@ const repeatPasswordInput = document.querySelector("#repeatPassword");
 const termsAndConditions = document.querySelector("#terms");
 const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-console.log(existingUsers);
-
 const isEmpty = (inputsArray) => {
   return inputsArray.map((input) =>
     input.value === "" || !input.value

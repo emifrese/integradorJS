@@ -47,17 +47,11 @@ const init = async () => {
   );
   categoriesProductsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("itemButton")) {
-      if (!appState.name) {
-        location.replace("../../pages/login.html");
-        return;
-      }
+      checkLogStatus()
       editCart(e.target);
     }
     if (e.target.classList.contains("likeButton")) {
-      if (!appState.name) {
-        location.replace("../../pages/login.html");
-        return;
-      }
+      checkLogStatus()
       addToFavorites(e.target, category);
     }
   });
@@ -70,14 +64,16 @@ const init = async () => {
   logoImg.addEventListener("click", () => location.replace("../../index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
   cartIcon.addEventListener("click", () => {
-    if (!appState.name) {
-      location.replace("../../pages/login.html");
-      return;
-    }
-    showCart();
+    checkLogStatus()
+    appState.name.length > 0 && showCart();
     const cartContainer = document.querySelector(".cartContainer");
     cartContainer.addEventListener("click", (e) => modifyItems(e));
-    cartContainer.addEventListener("submit", (e) => finishTransaction(e));
+    cartContainer.addEventListener("submit", (e) => {
+      setTimeout(() => {
+        location.replace('../../index.html')
+      },1500)
+      finishTransaction(e)
+    });
   });
   menuButton.addEventListener("click", () => {
     bottomHeader.classList.toggle("burgerMenu");
@@ -87,7 +83,6 @@ const init = async () => {
       bottomHeader.classList.toggle("burgerMenu")
     }
   })
-  console.log(toTheTop, header)
   toTheTop.addEventListener("click", () => {
     header.scrollIntoView({behavior: "smooth"})
   })

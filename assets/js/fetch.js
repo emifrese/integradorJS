@@ -3,7 +3,6 @@ const getDeals = async () => {
     "https://api.mercadolibre.com/sites/MLA/search?q=ofertas&results=1"
   );
   const { results } = await response.json();
-  console.log(results);
   return results;
 };
 

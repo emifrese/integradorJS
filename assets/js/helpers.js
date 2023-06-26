@@ -5,6 +5,10 @@ const cardProduct = (
   //chequear si esta en favoritos
   const isLiked = appState.likes.some((itemLiked) => itemLiked === id);
 
+  const isInTheCart = appState.shoppingCart.some(
+    (itemCart) => itemCart.id === id
+  );
+
   const wasBought = appState.itemsBought.some(
     (itemBought) => itemBought.id === id
   )
@@ -25,7 +29,9 @@ const cardProduct = (
                 : ""
             }
                 <strong>$${price}</strong>
-                <p class="productTitle">${title}</p>
+                <p class="productTitle">${title.slice(0, 40)}${
+    title.length > 40 ? "..." : ""
+  }</p>
                 </div>
                 <button 
                 class="itemButton" 
@@ -33,7 +39,9 @@ const cardProduct = (
                 data-title=${title.replaceAll(" ", "-")}
                 data-price=${price}
                 data-img=${thumbnail}
-                >Agregar al carrito</button>
+                >${
+                  isInTheCart ? "Agregar otro" : "Agregar al carrito"
+                }</button>
           </div>`;
 };
 
@@ -87,7 +95,6 @@ const initializeCarousel = (n, type) => {
 const nextCarousel = (n, type, nextButton, prevButton) => {
   const carouselArray = selectCarousel(type);
   const lastIndex = nextAvailable(type);
-  console.log(carouselArray, lastIndex);
   if (lastIndex === carouselArray.length - 1) {
     return;
   }
@@ -149,12 +156,11 @@ const nextAvailable = (type) => {
 const logoutHandler = () => {
   showModal("Usted esta saliendo de su cuenta");
   localStorage.removeItem("currentUser");
-  setTimeout(() => location.reload(), 1500);
+  setTimeout(() => location.reload(), 2000);
 };
 
 const loadUserInfo = (user, links) => {
   const welcomeButton = links.children[0];
-  console.log(welcomeButton.children[0], user);
   welcomeButton.children[0].innerText = `Hola ${user[0].name}`;
   welcomeButton.children[0].removeAttribute("href");
   welcomeButton.children[0].style.cursor = "default";
@@ -166,10 +172,6 @@ const loadUserInfo = (user, links) => {
 };
 
 const editCart = (addItem) => {
-  if (!appState.name) {
-    location.replace("../../pages/login.html");
-    return;
-  }
   if (!addItem.classList.contains("itemButton")) return;
   let newCart;
   let itemIndex = appState.shoppingCart.findIndex(
@@ -318,7 +320,6 @@ const modifyItems = (e) => {
 
 const finishTransaction = (e) => {
   e.preventDefault();
-  console.log("finish transaction");
 
   // historial comprados pendiente
   // sino existe agregar
@@ -389,14 +390,12 @@ const addToFavorites = async (e, type) => {
   appState.likes = newLikes;
 
   const { pathname } = document.location;
-  console.log(pathname);
   let products;
   let container;
   if (pathname === "/index.html") {
     products = await getDeals();
     container = productsContainer;
   } else if (pathname === "/results.html") {
-    console.log('here')
     const search = document.location.search.substring(1);
     products = await searchProducts(search);
     container = resultsContainer;
@@ -406,11 +405,15 @@ const addToFavorites = async (e, type) => {
     container = categoriesProductsContainer;
   }
 
-  console.log(products);
-
   renderProducts(toRenderProducts(products, type), container);
-  pathname === "/index.html" && adaptCarousel("products", window.innerWidth, carouselProducts, initializeCarousel);
-  pathname === "/index.html" && prevProduct.classList.add("displayNone")
+  pathname === "/index.html" &&
+    adaptCarousel(
+      "products",
+      window.innerWidth,
+      carouselProducts,
+      initializeCarousel
+    );
+  pathname === "/index.html" && prevProduct.classList.add("displayNone");
 };
 
 const searchHandler = (e, input) => {
@@ -452,4 +455,14 @@ const carouselCategories = (width) => {
 
 const adaptCarousel = (type, width, nFc, carouselFc) => {
   carouselFc(nFc(width), type);
+};
+
+const checkLogStatus = () => {
+  if (!appState.name) {
+    setTimeout(() => {
+      location.replace("../../pages/login.html");
+    }, 2000);
+    showModal("Primero debe ingresar a su cuenta, redirigiendo...");
+    return;
+  }
 };
