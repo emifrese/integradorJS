@@ -15,6 +15,7 @@ passwordInput.setAttribute("type", "password");
 passwordInput.setAttribute("name", "password");
 passwordInput.setAttribute("id", "password");
 passwordLabel.appendChild(passwordInput);
+createAccountButton.addEventListener("click", () => location.replace("./signup.html"));
 
 let loginUserIndex;
 let timesPassed = 0;
