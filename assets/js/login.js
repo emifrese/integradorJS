@@ -6,8 +6,6 @@ const continueButton = document.querySelector("#continue");
 const createAccountButton = document.querySelector("#create");
 const passwordLabel = document.createElement("label");
 const passwordInput = document.createElement("input");
-const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-const currentUser = JSON.parse(localStorage.getItem("currentUser")) || [];
 
 passwordLabel.setAttribute("for", "password");
 passwordLabel.innerText = "Contraseña";
@@ -77,10 +75,7 @@ const loginFormHandler = (e) => {
 };
 
 (() => {
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => currentUser.length > 0 && location.replace("../index.html")
-  );
+  appState.name && location.replace("../../index.html");
   logoImg.addEventListener("click", () => location.replace("../index.html"));
   // continueButton.addEventListener("click", () => existingUser(emailInput));
   loginForm.addEventListener("submit", loginFormHandler);

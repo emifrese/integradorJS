@@ -1,97 +1,116 @@
-
 body {
-    justify-content: unset;
-  }
+  justify-content: unset;
+}
 
 main {
-    flex-direction: row;
-    justify-content: center;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .registerForm {
-    border-radius: 0.5rem;
-    box-shadow: var(--card-shadow-hover);
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    margin: 1rem 0;
-    padding: 1rem 3rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--card-shadow-hover);
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 1rem 0;
+  padding: 1rem 3rem;
 }
 
 .registerForm h1 {
-    font-size: 1.6rem;
-    display: flex;
-    flex-direction: column;
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
 }
 
-
 .registerForm label {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    padding-bottom: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-bottom: 0.25rem;
 }
 
 .registerForm input {
-    min-width: 300px;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 0.5px solid;
+  min-width: 300px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.5px solid;
 }
 
 .registerForm input:focus {
-    outline: none;
-    border-color: rgb(var(--fucsia))
+  outline: none;
+  border-color: rgb(var(--fucsia));
 }
 
 .registerForm label:has(input:focus) {
-    color: rgb(var(--fucsia-darker));
-    transition: all 0.3s ease
+  color: rgb(var(--fucsia-darker));
+  transition: all 0.3s ease;
 }
 
 #terms {
-    min-width: unset;
-    margin: 0;
-    margin-right: 5px;
+  min-width: unset;
+  margin: 0;
+  margin-right: 5px;
 }
 
 label:has(#terms) {
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 16px;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.registerButton,
+.loginButton {
+  width: 150px;
+  align-self: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .registerButton {
-    width: 100px;
-    align-self: center;
-    background-color: rgb(var(--fucsia-darker));
-    color: rgb(var(--white));
-    padding: 0.5rem;
-    border: 1px solid rgb(var(--fucsia));
-    border-radius: 0.5rem;
-    cursor: pointer;
+  color: rgb(var(--white));
+  border: 1px solid rgb(var(--fucsia));
+  background-color: rgb(var(--fucsia-darker));
+}
+
+.loginButton {
+  margin-top: 0.5rem;
+  color: rgb(var(--fucsia));
+  border: 1px solid rgb(var(--fucsia-darker));
+  background-color: rgb(var(--white));
 }
 
 .registerButton:hover {
+  transition: all 0.3s ease;
+  background-color: rgb(var(--fucsia));
+}
+
+.loginButton:hover {
     transition: all 0.3s ease;
-    background-color: rgb(var(--fucsia));
+    color: rgb(var(--white));
+    background-color: rgb(var(--fucsia))
 }
 
 @media (max-width: 640px) {
-    .registerForm {
-        width: 400px;
-    }
+  .registerForm {
+    width: 300px;
+  }
 
-    .registerForm h1 {
-        font-size: 1.2rem;
-    }
+  .registerForm input {
+    min-width: 200px;
+  }
 
-    .registerForm label {
-        font-size: 0.8rem;
-    }
+  .registerForm h1 {
+    font-size: 1.2rem;
+  }
 
-    .registerForm input {
-        padding: 0.3rem
-    }
+  .registerForm label {
+    font-size: 0.8rem;
+  }
+
+  .registerForm input {
+    padding: 0.3rem;
+  }
 }

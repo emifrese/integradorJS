@@ -1,12 +1,12 @@
 const logoImg = document.querySelector(".logoImgContainer");
 const registerForm = document.querySelector(".registerForm");
+const loginButton = document.querySelector(".loginButton");
 const nameInput = document.querySelector("#name");
 const surnameInput = document.querySelector("#surname");
 const emailInput = document.querySelector("#email");
 const passwordInput = document.querySelector("#password");
 const repeatPasswordInput = document.querySelector("#repeatPassword");
 const termsAndConditions = document.querySelector("#terms");
-const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
 const isEmpty = (inputsArray) => {
   return inputsArray.map((input) =>
@@ -116,6 +116,10 @@ const submitRegisterHandler = (e) => {
 };
 
 (() => {
-  logoImg.addEventListener("click", () => location.replace("../index.html"));
+  appState.name && location.replace("../../index.html");
+  logoImg.addEventListener("click", () => location.replace("../../index.html"));
   registerForm.addEventListener("submit", submitRegisterHandler);
+  loginButton.addEventListener("click", () =>
+    location.replace("../../pages/login.html")
+  );
 })();
