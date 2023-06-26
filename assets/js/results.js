@@ -13,25 +13,25 @@ const init = async () => {
   resultsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("itemButton")) {
       if (!appState.name) {
-        location.replace("/login.html");
+        location.replace("../../pages/login.html");
         return;
       }
       editCart(e.target);
     }
     if (e.target.classList.contains("likeButton")) {
       if (!appState.name) {
-        location.replace("/login.html");
+        location.replace("../../pages/login.html");
         return;
       }
       addToFavorites(e.target, "results");
     }
   });
 
-  logoImg.addEventListener("click", () => location.replace("../index.html"));
+  logoImg.addEventListener("click", () => location.replace("../../index.html"));
   searchForm.addEventListener("submit", (e) => searchHandler(e, searchInput));
   cartIcon.addEventListener("click", () => {
     if (!appState.name) {
-      location.replace("/login.html");
+      location.replace("../../pages/login.html");
       return;
     }
     showCart();

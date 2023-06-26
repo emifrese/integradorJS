@@ -25,12 +25,12 @@
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-body {
+/*body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-}
+}*/
 
 /* MODAL */
 
