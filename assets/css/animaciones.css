@@ -85,7 +85,7 @@
 
 .cardProduct:hover {
   box-shadow: var(--card-shadow-hover);
-  max-height: 320px;
+  /* transform: scale(1.01); */
 }
 
 .productsButtons:hover {

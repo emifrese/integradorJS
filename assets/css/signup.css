@@ -78,7 +78,7 @@ label:has(#terms) {
     background-color: rgb(var(--fucsia));
 }
 
-@media (max-width: 426px) {
+@media (max-width: 640px) {
     .registerForm {
         width: 400px;
     }

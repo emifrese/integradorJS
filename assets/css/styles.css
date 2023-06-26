@@ -401,8 +401,7 @@ main {
 
 .cardProduct {
   width: 200px;
-  min-height: 300px;
-  max-height: 300px;
+  height: 320px;
   padding: 1rem;
   border-radius: 0.1rem;
   box-shadow: var(--card-shadow);
@@ -411,6 +410,7 @@ main {
   animation: appear 0.3s ease-in;
   background-color: rgb(var(--white));
   position: relative;
+  justify-content: space-between;
 }
 
 .cardProduct h2 {
@@ -452,7 +452,6 @@ main {
 }
 
 .itemButton {
-  margin: 1rem 0;
   border: 1px solid rgb(var(--fucsia-darker));
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;

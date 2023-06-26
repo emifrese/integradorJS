@@ -167,7 +167,7 @@ const loadUserInfo = (user, links) => {
 
 const editCart = (addItem) => {
   if (!appState.name) {
-    location.replace("/login.html");
+    location.replace("../../pages/login.html");
     return;
   }
   if (!addItem.classList.contains("itemButton")) return;
@@ -431,9 +431,9 @@ const isLogged = (user, loadUser, links, cart, state) => {
 };
 
 const carouselProducts = (width) => {
-  if (width >= 1024) {
+  if (width >= 1280) {
     return 4;
-  } else if (width < 1024 && width > 426) {
+  } else if (width < 1280 && width > 641) {
     return 3;
   } else {
     return 2;
@@ -441,9 +441,9 @@ const carouselProducts = (width) => {
 };
 
 const carouselCategories = (width) => {
-  if (width >= 1024) {
+  if (width >= 1280) {
     return 16;
-  } else if (width < 1024 && width > 426) {
+  } else if (width < 1280 && width > 641) {
     return 8;
   } else {
     return 4;
