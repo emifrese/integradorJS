@@ -254,7 +254,7 @@ const renderCartItems = (total) => {
     })
     .join("");
   total.innerHTML = totalToPay();
-  if (appState.shoppingCart.length > 0) {
+  if (appState.shoppingCart.length > 0 && cartContainer.lastElementChild.tagName !== "BUTTON") {
     cartContainer.innerHTML +=
       '<button type="submit" class="cartBuyButton">Comprar</button>';
   }
